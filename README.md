@@ -13,15 +13,15 @@ Case 2. Eversion
 
 The general flow of simulation steps can be found at "void System::solveSystem()" in System.cu.
 
-For particular functions such as linear spring, please refer to LinearSpring.cu and LinearSpring.h files. The same applies to bending spring and area springs.
+For particular functions such as linear spring, please refer to LinearSpring.cu and LinearSpring.h files. 
 
-For edge-swap algorithm and general data structure manipulation functions, please refer to Edgeswap_test.cpp and Edgeswap_test.h.
+For gradient descent algorithm and general data structure manipulation functions, please refer to gradientRelax.cu and gradientRelax.h.
 
 To change the name of saved animation and data output, please refer to Storage.cpp and Storage.h.
 
-To change the simulation job title and to some extend simulation time step size, please refer to SBATCH.sh.
+To change the simulation job title and to some extend simulation time step size, please refer to SBATCH_try_this_one_if_the_original_does_not_work.sh.
 
-Initial data structure (built via MATLAB functions) is located in Data_Structure.xml.
+Initial data structure (built via MATLAB functions) is located in Data_Structures/Data_Structure.xml.
 
 Overall flow of the simulation steps:
 
@@ -32,9 +32,9 @@ II. Run a predetermined number of relaxation steps of the model system to attain
 III. Start the actual simulation:
 
       1. Update parameters (if necessary).
-      2. Run a predetermined number of relaxation steps or dynamical number of relaxation steps depending on simulation types (molecular dynamics vs energy minimization).
-      3. Run edge-swap algorithm (if applicable).
-      4. Repeat (1-3) for a number of times, and then test for growth (if applicable).
+      2. Run a predetermined number of relaxation steps or dynamical number of relaxation steps depending on simulation types.
+      3. Run gradient descent for minimization of energy.
+      4. Repeat (1-3) for a number of times, and then test for deformation.
       5. Repeat (1-4) until simulation terminates.
 
 To run the simulation on UCR HPCC:
