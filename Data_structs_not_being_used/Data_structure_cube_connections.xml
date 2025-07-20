@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<data>
+   <settings>
+      <Tau>1.0</Tau>
+      <Tau>1.0</Tau>
+      <KBT>1.0</KBT>
+      <Linear_Const>1.0</Linear_Const>
+      <Area_Const>1.0</Area_Const>
+      <Bend_Const>1.0</Bend_Const>
+      <LJ_Eps>1.0</LJ_Eps>
+      <LJ_Rmin>1.0</LJ_Rmin>
+      <LJ_Rmax>1.0</LJ_Rmax>
+      <LJ_Const>1.0</LJ_Const>
+      <LJ_X>1.0</LJ_X>
+      <LJ_Y>1.0</LJ_Y>
+      <LJ_Z>1.0</LJ_Z>
+   </settings>
+   <nodes default-mass="1.0">
+      <node>-1  6.1552e-05           0</node>
+      <node>-6.1558e-05          -1           0</node>
+      <node>1 -6.1561e-05           0</node>
+      <node>6.1552e-05           1           0</node>
+      <node>-1  6.1552e-05           1</node>
+      <node>-6.1558e-05          -1           1</node>
+      <node>1 -6.1561e-05           1</node>
+      <node>6.1552e-05           1           1</node>
+   </nodes>
+   <edgeinfos>
+      <edgeinfo>1  2</edgeinfo>
+      <edgeinfo>1  4</edgeinfo>
+      <edgeinfo>1  5</edgeinfo>
+      <edgeinfo>1  6</edgeinfo>
+      <edgeinfo>1  8</edgeinfo>
+      <edgeinfo>2  3</edgeinfo>
+      <edgeinfo>2  4</edgeinfo>
+      <edgeinfo>2  5</edgeinfo>
+      <edgeinfo>2  6</edgeinfo>
+      <edgeinfo>2  7</edgeinfo>
+      <edgeinfo>2  8</edgeinfo>
+      <edgeinfo>3  4</edgeinfo>
+      <edgeinfo>3  6</edgeinfo>
+      <edgeinfo>3  7</edgeinfo>
+      <edgeinfo>3  8</edgeinfo>
+      <edgeinfo>4  5</edgeinfo>
+      <edgeinfo>4  6</edgeinfo>
+      <edgeinfo>4  7</edgeinfo>
+      <edgeinfo>4  8</edgeinfo>
+      <edgeinfo>5  6</edgeinfo>
+      <edgeinfo>5  8</edgeinfo>
+      <edgeinfo>6  7</edgeinfo>
+      <edgeinfo>6  8</edgeinfo>
+      <edgeinfo>7  8</edgeinfo>
+   </edgeinfos>
+   <elems>
+      <elem>2  4  6</elem>
+      <elem>6  8  2</elem>
+      <elem>4  1  8</elem>
+      <elem>8  5  4</elem>
+      <elem>1  2  5</elem>
+      <elem>5  6  1</elem>
+      <elem>3  4  7</elem>
+      <elem>7  8  3</elem>
+      <elem>4  2  8</elem>
+      <elem>8  6  4</elem>
+      <elem>2  3  6</elem>
+      <elem>6  7  2</elem>
+   </elems>
+   <elem2edges>
+      <elem2edge>17   9   7</elem2edge>
+      <elem2edge>11   9  23</elem2edge>
+      <elem2edge>5  19   2</elem2edge>
+      <elem2edge>16  19  21</elem2edge>
+      <elem2edge>8  3  1</elem2edge>
+      <elem2edge>4   3  20</elem2edge>
+      <elem2edge>18  14  12</elem2edge>
+      <elem2edge>15  14  24</elem2edge>
+      <elem2edge>11  19   7</elem2edge>
+      <elem2edge>17  19  23</elem2edge>
+      <elem2edge>13   9   6</elem2edge>
+      <elem2edge>10   9  22</elem2edge>
+   </elem2edges>
+   <edge2elems>
+      <edge2elem>5  5</edge2elem>
+      <edge2elem>3  3</edge2elem>
+      <edge2elem>5  6</edge2elem>
+      <edge2elem>6  6</edge2elem>
+      <edge2elem>3  3</edge2elem>
+      <edge2elem>11  11</edge2elem>
+      <edge2elem>1  9</edge2elem>
+      <edge2elem>5  5</edge2elem>
+      <edge2elem>1  12</edge2elem>
+      <edge2elem>12  12</edge2elem>
+      <edge2elem>2  9</edge2elem>
+      <edge2elem>7  7</edge2elem>
+      <edge2elem>11  11</edge2elem>
+      <edge2elem>7  8</edge2elem>
+      <edge2elem>8  8</edge2elem>
+      <edge2elem>4  4</edge2elem>
+      <edge2elem>1  10</edge2elem>
+      <edge2elem>7  7</edge2elem>
+      <edge2elem>3  10</edge2elem>
+      <edge2elem>6  6</edge2elem>
+      <edge2elem>4  4</edge2elem>
+      <edge2elem>12  12</edge2elem>
+      <edge2elem>2  10</edge2elem>
+      <edge2elem>8  8</edge2elem>
+   </edge2elems>
+</data>

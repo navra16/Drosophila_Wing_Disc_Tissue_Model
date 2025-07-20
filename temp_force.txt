@@ -1,0 +1,144 @@
+AreaTriangles.cu:                thrust::raw_pointer_cast(coordInfoVecs.nodeForceX.data()),
+AreaTriangles.cu:                thrust::raw_pointer_cast(coordInfoVecs.nodeForceY.data()),
+AreaTriangles.cu:                thrust::raw_pointer_cast(coordInfoVecs.nodeForceZ.data())));
+BendingTriangles.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeForceX.data()),
+BendingTriangles.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeForceY.data()),
+BendingTriangles.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeForceZ.data())));
+LJEnergy.cu://WARNING: function must not reset coordInfoVecs.nodeForceX etc. 
+LJSprings.cu://WARNING: function must not reset coordInfoVecs.nodeForceX etc. 
+LJSprings.cu:                        thrust::raw_pointer_cast(coordInfoVecs.nodeForceX.data()),
+LJSprings.cu:                        thrust::raw_pointer_cast(coordInfoVecs.nodeForceY.data()),
+LJSprings.cu:                        thrust::raw_pointer_cast(coordInfoVecs.nodeForceZ.data())),
+LJSprings_LJ.cu://WARNING: function must not reset coordInfoVecs.nodeForceX etc. 
+LineTensionSprings.cu:    //std::cout<<"pre linear spring: " <<coordInfoVecs.nodeForceX.size()<<std::endl;
+LineTensionSprings.cu:	std::cout<<"partForce: " << coordInfoVecs.nodeForceX[id]<< " "<< coordInfoVecs.nodeForceY[id] << " "<< coordInfoVecs.nodeForceZ[id] << std::endl;
+LineTensionSprings.cu:   /* std::cout<<"mid1 linear spring: " <<coordInfoVecs.nodeForceX.size()<<std::endl;
+LineTensionSprings.cu:	std::cout<<"partForce: " << coordInfoVecs.nodeForceX[id]<< " "<< coordInfoVecs.nodeForceY[id] << " "<< coordInfoVecs.nodeForceZ[id] << std::endl;
+LineTensionSprings.cu:    std::cout<<"mid2 linear spring: " <<coordInfoVecs.nodeForceX.size()<<std::endl;
+LineTensionSprings.cu:	std::cout<<"partForce: " << coordInfoVecs.nodeForceX[id]<< " "<< coordInfoVecs.nodeForceY[id] << " "<< coordInfoVecs.nodeForceZ[id] << std::endl;
+LineTensionSprings.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeForceX.data()),
+LineTensionSprings.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeForceY.data()),
+LineTensionSprings.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeForceZ.data())));
+LineTensionSprings.cu:    std::cout<<"post linear spring: " <<coordInfoVecs.nodeForceX.size()<<std::endl;
+LineTensionSprings.cu:	std::cout<<"partForce: " << coordInfoVecs.nodeForceX[id]<< " "<< coordInfoVecs.nodeForceY[id] << " "<< coordInfoVecs.nodeForceZ[id] << std::endl;
+LineTensionSprings.cu:    //std::cout<<"Force from linear on node 36 = "<<coordInfoVecs.nodeForceX[35]<<" "<<coordInfoVecs.nodeForceY[35]<<" "<<coordInfoVecs.nodeForceZ[35]<<std::endl;
+LinearSprings.cu:    //std::cout<<"pre linear spring: " <<coordInfoVecs.nodeForceX.size()<<std::endl;
+LinearSprings.cu:	std::cout<<"partForce: " << coordInfoVecs.nodeForceX[id]<< " "<< coordInfoVecs.nodeForceY[id] << " "<< coordInfoVecs.nodeForceZ[id] << std::endl;
+LinearSprings.cu:   /* std::cout<<"mid1 linear spring: " <<coordInfoVecs.nodeForceX.size()<<std::endl;
+LinearSprings.cu:	std::cout<<"partForce: " << coordInfoVecs.nodeForceX[id]<< " "<< coordInfoVecs.nodeForceY[id] << " "<< coordInfoVecs.nodeForceZ[id] << std::endl;
+LinearSprings.cu:    std::cout<<"mid2 linear spring: " <<coordInfoVecs.nodeForceX.size()<<std::endl;
+LinearSprings.cu:	std::cout<<"partForce: " << coordInfoVecs.nodeForceX[id]<< " "<< coordInfoVecs.nodeForceY[id] << " "<< coordInfoVecs.nodeForceZ[id] << std::endl;
+LinearSprings.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeForceX.data()),
+LinearSprings.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeForceY.data()),
+LinearSprings.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeForceZ.data())));
+LinearSprings.cu:    std::cout<<"post linear spring: " <<coordInfoVecs.nodeForceX.size()<<std::endl;
+LinearSprings.cu:	std::cout<<"partForce: " << coordInfoVecs.nodeForceX[id]<< " "<< coordInfoVecs.nodeForceY[id] << " "<< coordInfoVecs.nodeForceZ[id] << std::endl;
+LinearSprings.cu:    //std::cout<<"Force from linear on node 36 = "<<coordInfoVecs.nodeForceX[35]<<" "<<coordInfoVecs.nodeForceY[35]<<" "<<coordInfoVecs.nodeForceZ[35]<<std::endl;
+MemRepulsionEnergy.cu://WARNING: function must not reset coordInfoVecs.nodeForceX etc. 
+MemRepulsionSprings.cu://WARNING: function must not reset coordInfoVecs.nodeForceX etc. 
+MemRepulsionSprings.cu:                coordInfoVecs.nodeForceX.begin(),
+MemRepulsionSprings.cu:                coordInfoVecs.nodeForceY.begin(),
+MemRepulsionSprings.cu:                coordInfoVecs.nodeForceZ.begin())),
+MemRepulsionSprings.cu:                coordInfoVecs.nodeForceX.begin(),
+MemRepulsionSprings.cu:                coordInfoVecs.nodeForceY.begin(),
+MemRepulsionSprings.cu:                coordInfoVecs.nodeForceZ.begin())) + generalParams.maxNodeCount,
+MemRepulsionSprings.cu:                coordInfoVecs.nodeForceX.begin(),
+MemRepulsionSprings.cu:                coordInfoVecs.nodeForceY.begin(),
+MemRepulsionSprings.cu:                coordInfoVecs.nodeForceZ.begin())),
+MemRepulsionSprings_local.cu://WARNING: function must not reset coordInfoVecs.nodeForceX etc. 
+MemRepulsionSprings_local.cu:                coordInfoVecs.nodeForceX.begin(),
+MemRepulsionSprings_local.cu:                coordInfoVecs.nodeForceY.begin(),
+MemRepulsionSprings_local.cu:                coordInfoVecs.nodeForceZ.begin())),
+MemRepulsionSprings_local.cu:                coordInfoVecs.nodeForceX.begin(),
+MemRepulsionSprings_local.cu:                coordInfoVecs.nodeForceY.begin(),
+MemRepulsionSprings_local.cu:                coordInfoVecs.nodeForceZ.begin())) + generalParams.maxNodeCount,
+MemRepulsionSprings_local.cu:                coordInfoVecs.nodeForceX.begin(),
+MemRepulsionSprings_local.cu:                coordInfoVecs.nodeForceY.begin(),
+MemRepulsionSprings_local.cu:                coordInfoVecs.nodeForceZ.begin())),
+MemRepulsionSprings_universal.cu://WARNING: function must not reset coordInfoVecs.nodeForceX etc. 
+MemRepulsionSprings_universal.cu:                coordInfoVecs.nodeForceX.begin(),
+MemRepulsionSprings_universal.cu:                coordInfoVecs.nodeForceY.begin(),
+MemRepulsionSprings_universal.cu:                coordInfoVecs.nodeForceZ.begin())),
+MemRepulsionSprings_universal.cu:                coordInfoVecs.nodeForceX.begin(),
+MemRepulsionSprings_universal.cu:                coordInfoVecs.nodeForceY.begin(),
+MemRepulsionSprings_universal.cu:                coordInfoVecs.nodeForceZ.begin())) + generalParams.maxNodeCount,
+MemRepulsionSprings_universal.cu:                coordInfoVecs.nodeForceX.begin(),
+MemRepulsionSprings_universal.cu:                coordInfoVecs.nodeForceY.begin(),
+MemRepulsionSprings_universal.cu:                coordInfoVecs.nodeForceZ.begin())),
+NodeAdvance.cu:					coordInfoVecs.nodeForceX.begin(),
+NodeAdvance.cu:					coordInfoVecs.nodeForceY.begin(),
+NodeAdvance.cu:					coordInfoVecs.nodeForceZ.begin())),
+Nodes2Triangles.cu://WARNING: function must not reset coordInfoVecs.nodeForceX etc. 
+Recenter.cu:					coordInfoVecs.nodeForceX.begin(),
+Recenter.cu:					coordInfoVecs.nodeForceY.begin(),
+Recenter.cu:					coordInfoVecs.nodeForceZ.begin())),
+System.cu:    thrust::fill(coordInfoVecs.nodeForceX.begin(), coordInfoVecs.nodeForceX.end(), 0.0);
+System.cu:    thrust::fill(coordInfoVecs.nodeForceY.begin(), coordInfoVecs.nodeForceY.end(), 0.0);
+System.cu:    thrust::fill(coordInfoVecs.nodeForceZ.begin(), coordInfoVecs.nodeForceZ.end(), 0.0);
+System.cu:	coordInfoVecs.nodeForceX.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size(), 0.0);
+System.cu:	coordInfoVecs.nodeForceY.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size(), 0.0);
+System.cu:	coordInfoVecs.nodeForceZ.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size(), 0.0);
+System.cu://  Fill operations for other nodeForce and prevNodeForce vectors.
+System.cu:	thrust::fill(coordInfoVecs.nodeForceX.begin(), coordInfoVecs.nodeForceX.end(), 0.0);
+System.cu:	thrust::fill(coordInfoVecs.nodeForceY.begin(), coordInfoVecs.nodeForceY.end(), 0.0);
+System.cu:	thrust::fill(coordInfoVecs.nodeForceZ.begin(), coordInfoVecs.nodeForceZ.end(), 0.0);
+System.cu:	hostSetInfoVecs.nodeForceX.resize(coordInfoVecs.nodeLocX.size());
+System.cu:	hostSetInfoVecs.nodeForceY.resize(coordInfoVecs.nodeLocX.size());
+System.cu:	hostSetInfoVecs.nodeForceZ.resize(coordInfoVecs.nodeLocX.size());
+System.cu:	std::cout<<"Host_nodeForceX size = "<<hostSetInfoVecs.nodeLocX.size()<<std::endl;
+System_nonHillFunction.cu:	thrust::fill(coordInfoVecs.nodeForceX.begin(), coordInfoVecs.nodeForceX.end(), 0.0);
+System_nonHillFunction.cu:	thrust::fill(coordInfoVecs.nodeForceY.begin(), coordInfoVecs.nodeForceY.end(), 0.0);
+System_nonHillFunction.cu:	thrust::fill(coordInfoVecs.nodeForceZ.begin(), coordInfoVecs.nodeForceZ.end(), 0.0);
+System_nonHillFunction.cu:	coordInfoVecs.nodeForceX.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size(), 0.0);
+System_nonHillFunction.cu:	coordInfoVecs.nodeForceY.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size(), 0.0);
+System_nonHillFunction.cu:	coordInfoVecs.nodeForceZ.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size(), 0.0);
+System_nonHillFunction.cu:	thrust::fill(coordInfoVecs.nodeForceX.begin(), coordInfoVecs.nodeForceX.end(), 0.0);
+System_nonHillFunction.cu:	thrust::fill(coordInfoVecs.nodeForceY.begin(), coordInfoVecs.nodeForceY.end(), 0.0);
+System_nonHillFunction.cu:	thrust::fill(coordInfoVecs.nodeForceZ.begin(), coordInfoVecs.nodeForceZ.end(), 0.0);
+System_nonHillFunction.cu:	hostSetInfoVecs.nodeForceX.resize(coordInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	hostSetInfoVecs.nodeForceY.resize(coordInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	hostSetInfoVecs.nodeForceZ.resize(coordInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	std::cout<<"Host_nodeForceX size = "<<hostSetInfoVecs.nodeLocX.size()<<std::endl;
+TurgorForce.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeForceX.data()),
+TurgorForce.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeForceY.data()),
+TurgorForce.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeForceZ.data())));
+VolumeSprings.cu:// WARNING: function must not reset coordInfoVecs.nodeForceX etc.
+VolumeSprings.cu:        // Input range: a zip iterator containing tuples of (index, id_bucket, nodeForceX, nodeForceY, nodeForceZ).
+VolumeSprings.cu:                coordInfoVecs.nodeForceX.begin(),
+VolumeSprings.cu:                coordInfoVecs.nodeForceY.begin(),
+VolumeSprings.cu:                coordInfoVecs.nodeForceZ.begin()
+VolumeSprings.cu:        // Input range: a zip iterator containing tuples of (index, id_bucket, nodeForceX, nodeForceY, nodeForceZ)
+VolumeSprings.cu:                coordInfoVecs.nodeForceX.begin(),
+VolumeSprings.cu:                coordInfoVecs.nodeForceY.begin(),
+VolumeSprings.cu:                coordInfoVecs.nodeForceZ.begin()
+VolumeSprings.cu:        // Output range: a zip iterator containing tuples of (nodeForceX, nodeForceY, nodeForceZ) for each node.
+VolumeSprings.cu:                coordInfoVecs.nodeForceX.begin(),
+VolumeSprings.cu:                coordInfoVecs.nodeForceY.begin(),
+VolumeSprings.cu:                coordInfoVecs.nodeForceZ.begin())),
+VolumeSprings.cu:        std::cout<<"Force from volume on node 36 = "<<coordInfoVecs.nodeForceX[35]<<" "
+VolumeSprings.cu:            <<coordInfoVecs.nodeForceY[35]<<" "<<coordInfoVecs.nodeForceZ[35]<<std::endl;
+LJSprings.h:                //WARNING: since this function modifies nodeForceX etc, you cannot rewrite entries. 
+LJSprings.h:                //WARNING: since this function modifies nodeForceX etc, you cannot rewrite entries. 
+LJSprings.h:                //WARNING: since this function modifies nodeForceX etc, you cannot rewrite entries. 
+LJSprings_LJ.h:            //WARNING: since this function modifies nodeForceX etc, you cannot rewrite entries. 
+System.h:  	thrust::device_vector<double> nodeForceX;
+System.h:  	thrust::device_vector<double> nodeForceY;
+System.h:  	thrust::device_vector<double> nodeForceZ;
+SystemStructures.h:    thrust::host_vector<double> nodeForceX;
+SystemStructures.h:    thrust::host_vector<double> nodeForceY;
+SystemStructures.h:    thrust::host_vector<double> nodeForceZ;
+Edgeswap_test.cpp:        coordInfoVecs.nodeForceX[inode] += generalParams.volume_spring_constant*scaled_forceX;
+Edgeswap_test.cpp:        coordInfoVecs.nodeForceY[inode] += generalParams.volume_spring_constant*scaled_forceY;
+Edgeswap_test.cpp:        coordInfoVecs.nodeForceZ[inode] += generalParams.volume_spring_constant*scaled_forceZ;
+Edgeswap_test.cpp:        coordInfoVecs.nodeForceX[inode] += generalParams.volume_spring_constant*current_normalX;
+Edgeswap_test.cpp:        coordInfoVecs.nodeForceY[inode] += generalParams.volume_spring_constant*current_normalY;
+Edgeswap_test.cpp:        coordInfoVecs.nodeForceZ[inode] += generalParams.volume_spring_constant*current_normalZ;
+Storage.cpp:		// //	double t2n_1 = SYSTEM->coordInfoVecs.nodeForceX[i];
+Storage.cpp:		// //	double t2n_2 = SYSTEM->coordInfoVecs.nodeForceY[i];
+Storage.cpp:		// //	double t2n_3 = SYSTEM->coordInfoVecs.nodeForceZ[i];
+Utilities.cpp:        coordInfoVecs.nodeForceX[inode] += generalParams.volume_spring_constant*scaled_forceX;
+Utilities.cpp:        coordInfoVecs.nodeForceY[inode] += generalParams.volume_spring_constant*scaled_forceY;
+Utilities.cpp:        coordInfoVecs.nodeForceZ[inode] += generalParams.volume_spring_constant*scaled_forceZ;
+Utilities.cpp:        coordInfoVecs.nodeForceX[inode] += generalParams.volume_spring_constant*current_normalX;
+Utilities.cpp:        coordInfoVecs.nodeForceY[inode] += generalParams.volume_spring_constant*current_normalY;
+Utilities.cpp:        coordInfoVecs.nodeForceZ[inode] += generalParams.volume_spring_constant*current_normalZ;

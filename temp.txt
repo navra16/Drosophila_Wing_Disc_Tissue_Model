@@ -1,0 +1,400 @@
+System.h:    thrust::device_vector<double> nodeLocX;
+System.h:    thrust::device_vector<double> nodeLocX;
+SystemStructures.h:    thrust::host_vector<double> nodeLocX;
+AreaCompBud.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+AreaTriangles.cu:                    thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+AreaTrianglesEnergy.cu:          thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+BendingTriangles.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+BendingTrianglesEnergy.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+BucketScheme.cu:	double membrane_minX = (*(thrust::min_element(coordInfoVecs.nodeLocX.begin(), coordInfoVecs.nodeLocX.end())));
+BucketScheme.cu:	double membrane_maxX = (*(thrust::max_element(coordInfoVecs.nodeLocX.begin(), coordInfoVecs.nodeLocX.end())));
+BucketScheme.cu:	if (capsidInfoVecs.nodeLocX.size() > 0){
+BucketScheme.cu:		capsid_minX = (*(thrust::min_element(capsidInfoVecs.nodeLocX.begin(), capsidInfoVecs.nodeLocX.end())));
+BucketScheme.cu:		capsid_maxX = (*(thrust::max_element(capsidInfoVecs.nodeLocX.begin(), capsidInfoVecs.nodeLocX.end())));
+BucketScheme.cu:				coordInfoVecs.nodeLocX.begin(),
+BucketScheme.cu:				coordInfoVecs.nodeLocX.begin(),
+BucketScheme.cu:				capsidInfoVecs.nodeLocX.begin(),
+BucketScheme.cu:				capsidInfoVecs.nodeLocX.begin(),
+LJEnergy.cu:                        thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+LJSprings.cu:                        thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+LineTensionSprings.cu:	std::cout<<"partPos: " << coordInfoVecs.nodeLocX[id]<< " "<< coordInfoVecs.nodeLocY[id] << " "<< coordInfoVecs.nodeLocZ[id] << std::endl;
+LineTensionSprings.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+LineTensionSprings.cu:    std::cout<<"partPos: " << coordInfoVecs.nodeLocX[id]<< " "<< coordInfoVecs.nodeLocY[id] << " "<< coordInfoVecs.nodeLocZ[id] << std::endl;
+LineTensionSprings.cu:    std::cout<<"partPos: " << coordInfoVecs.nodeLocX[id]<< " "<< coordInfoVecs.nodeLocY[id] << " "<< coordInfoVecs.nodeLocZ[id] << std::endl;
+LineTensionSprings.cu:    std::cout<<"partPos: " << coordInfoVecs.nodeLocX[id]<< " "<< coordInfoVecs.nodeLocY[id] << " "<< coordInfoVecs.nodeLocZ[id] << std::endl;
+LinearSprings.cu:	std::cout<<"partPos: " << coordInfoVecs.nodeLocX[id]<< " "<< coordInfoVecs.nodeLocY[id] << " "<< coordInfoVecs.nodeLocZ[id] << std::endl;
+LinearSprings.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+LinearSprings.cu:    std::cout<<"partPos: " << coordInfoVecs.nodeLocX[id]<< " "<< coordInfoVecs.nodeLocY[id] << " "<< coordInfoVecs.nodeLocZ[id] << std::endl;
+LinearSprings.cu:    std::cout<<"partPos: " << coordInfoVecs.nodeLocX[id]<< " "<< coordInfoVecs.nodeLocY[id] << " "<< coordInfoVecs.nodeLocZ[id] << std::endl;
+LinearSprings.cu:    std::cout<<"partPos: " << coordInfoVecs.nodeLocX[id]<< " "<< coordInfoVecs.nodeLocY[id] << " "<< coordInfoVecs.nodeLocZ[id] << std::endl;
+LinearSpringsEnergy.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+MemRepulsionEnergy.cu:                coordInfoVecs.nodeLocX.begin(),
+MemRepulsionEnergy.cu:                coordInfoVecs.nodeLocX.begin(),
+MemRepulsionEnergy.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+MemRepulsionSprings.cu:                thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+MemRepulsionSprings_local.cu:                thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+MemRepulsionSprings_universal.cu:                thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+NodeAdvance.cu:					coordInfoVecs.nodeLocX.begin(),
+NodeAdvance.cu:					coordInfoVecs.nodeLocX.begin(),
+NodeAdvance.cu:					coordInfoVecs.nodeLocX.begin(),
+Recenter.cu:					coordInfoVecs.nodeLocX.begin(),
+Recenter.cu:					coordInfoVecs.nodeLocX.begin(),
+System.cu:		generalParams.centerX += coordInfoVecs.nodeLocX[i];
+System.cu:		double dist_x = coordInfoVecs.nodeLocX[max_height_index] - coordInfoVecs.nodeLocX[n1];
+System.cu:		coordInfoVecs.nodeLocX[max_height_index],
+System.cu:      					double r1x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_1[k]];
+System.cu:      					double r2x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_2[k]];
+System.cu:      					double r3x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_3[k]];
+System.cu:      							DIST += sqrt((coordInfoVecs.nodeLocX[node2] - coordInfoVecs.nodeLocX[node1])*(coordInfoVecs.nodeLocX[node2] - coordInfoVecs.nodeLocX[node1]) +
+System.cu:              	newcenterX += coordInfoVecs.nodeLocX[i];
+System.cu:    					coordInfoVecs.nodeLocX[i] += -displacementX;
+System.cu:					  current_center_x += coordInfoVecs.nodeLocX[k];
+System.cu:					  current_center_y += coordInfoVecs.nodeLocX[k];
+System.cu:  					double dist_x = current_center_x - coordInfoVecs.nodeLocX[n1];//coordInfoVecs.nodeLocX[max_height_index] - coordInfoVecs.nodeLocX[n1];//cent_of_edge_x;
+System.cu:                    double r1x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_1[k]];
+System.cu:    								double r2x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_2[k]];
+System.cu:    								double r3x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_3[k]];
+System.cu:				double ed = sqrt((coordInfoVecs.nodeLocX[ev2] - coordInfoVecs.nodeLocX[ev1])*(coordInfoVecs.nodeLocX[ev2] - coordInfoVecs.nodeLocX[ev1]) +
+System.cu:						double r1x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_1[k]];
+System.cu:						double r2x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_2[k]];
+System.cu:						double r3x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_3[k]];
+System.cu:					current_center_x += coordInfoVecs.nodeLocX[k];
+System.cu:					current_center_y += coordInfoVecs.nodeLocX[k];
+System.cu:  generalParams.maxNodeCount = hostSetInfoVecs.nodeLocX.size();
+System.cu:	coordInfoVecs.isNodeFixed.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size(),false);
+System.cu:	coordInfoVecs.prevNodeLocX.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System.cu:	coordInfoVecs.prevNodeLocY.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System.cu:	coordInfoVecs.prevNodeLocZ.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System.cu:	coordInfoVecs.prevNodeForceX.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System.cu:	coordInfoVecs.prevNodeForceY.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System.cu:	coordInfoVecs.prevNodeForceZ.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System.cu:	coordInfoVecs.nodeLocX.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System.cu:	coordInfoVecs.nodeLocY.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System.cu:	coordInfoVecs.nodeLocZ.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System.cu:	coordInfoVecs.nodeForceX.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size(), 0.0);
+System.cu:	coordInfoVecs.nodeForceY.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size(), 0.0);
+System.cu:	coordInfoVecs.nodeForceZ.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size(), 0.0);
+System.cu:  thrust::copy(hostSetInfoVecs.nodeLocX.begin(), hostSetInfoVecs.nodeLocX.end(), coordInfoVecs.prevNodeLocX.begin() );
+System.cu:	thrust::copy(hostSetInfoVecs.nodeLocX.begin(), hostSetInfoVecs.nodeLocX.end(), coordInfoVecs.nodeLocX.begin() );
+System.cu:	hostSetInfoVecs.isNodeFixed.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System.cu:	hostSetInfoVecs.nodeLocX.resize(coordInfoVecs.nodeLocX.size());
+System.cu:	hostSetInfoVecs.nodeLocY.resize(coordInfoVecs.nodeLocX.size());
+System.cu:	hostSetInfoVecs.nodeLocZ.resize(coordInfoVecs.nodeLocX.size());
+System.cu:	std::cout<<"Host_nodeLocX size = "<<hostSetInfoVecs.nodeLocX.size()<<std::endl;
+System.cu:	hostSetInfoVecs.nodeForceX.resize(coordInfoVecs.nodeLocX.size());
+System.cu:	hostSetInfoVecs.nodeForceY.resize(coordInfoVecs.nodeLocX.size());
+System.cu:	hostSetInfoVecs.nodeForceZ.resize(coordInfoVecs.nodeLocX.size());
+System.cu:	std::cout<<"Host_nodeForceX size = "<<hostSetInfoVecs.nodeLocX.size()<<std::endl;
+System_nonHillFunction.cu:		generalParams.centerX += coordInfoVecs.nodeLocX[i];
+System_nonHillFunction.cu:			double xsquared = (ljInfoVecs.LJ_PosX_all[i] - coordInfoVecs.nodeLocX[j])*
+System_nonHillFunction.cu:								(ljInfoVecs.LJ_PosX_all[i] - coordInfoVecs.nodeLocX[j]);
+System_nonHillFunction.cu:		//double cent_of_edge_x = (coordInfoVecs.nodeLocX[n1] + coordInfoVecs.nodeLocX[n2])/2.0;
+System_nonHillFunction.cu:		double dist_x = coordInfoVecs.nodeLocX[max_height_index] - coordInfoVecs.nodeLocX[n1];//cent_of_edge_x;
+System_nonHillFunction.cu:		// double temp_dist = sqrt((coordInfoVecs.nodeLocX[max_height_index] - coordInfoVecs.nodeLocX[n1])*(coordInfoVecs.nodeLocX[max_height_index] - coordInfoVecs.nodeLocX[n1]) +
+System_nonHillFunction.cu:		coordInfoVecs.nodeLocX[max_height_index],
+System_nonHillFunction.cu:					double r1x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_1[k]];
+System_nonHillFunction.cu:					double r2x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_2[k]];
+System_nonHillFunction.cu:					double r3x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_3[k]];
+System_nonHillFunction.cu:							DIST += sqrt((coordInfoVecs.nodeLocX[node2] - coordInfoVecs.nodeLocX[node1])*(coordInfoVecs.nodeLocX[node2] - coordInfoVecs.nodeLocX[node1]) +
+System_nonHillFunction.cu:					for (int i = 0; i < generalParams.maxNodeCount; i++){//for (int i = 0; i < coordInfoVecs.nodeLocX.size(); i++){
+System_nonHillFunction.cu:						newcenterX += coordInfoVecs.nodeLocX[i];
+System_nonHillFunction.cu:					newcenterX = newcenterX/generalParams.maxNodeCount; //coordInfoVecs.nodeLocX.size();
+System_nonHillFunction.cu:					newcenterY = newcenterY/generalParams.maxNodeCount; //coordInfoVecs.nodeLocX.size();
+System_nonHillFunction.cu:					newcenterZ = newcenterZ/generalParams.maxNodeCount; //coordInfoVecs.nodeLocX.size();
+System_nonHillFunction.cu:					coordInfoVecs.nodeLocX[i] += -displacementX;
+System_nonHillFunction.cu:								double r1x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_1[k]];
+System_nonHillFunction.cu:								double r2x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_2[k]];
+System_nonHillFunction.cu:								double r3x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_3[k]];
+System_nonHillFunction.cu:					// double edge_mdpt_x = (coordInfoVecs.nodeLocX[coordInfoVecs.edges2Nodes_1[boundary_edge_list[y]]] +
+System_nonHillFunction.cu:					// 						coordInfoVecs.nodeLocX[coordInfoVecs.edges2Nodes_2[boundary_edge_list[y]]])/2.0;
+System_nonHillFunction.cu:				double ed = sqrt((coordInfoVecs.nodeLocX[ev2] - coordInfoVecs.nodeLocX[ev1])*(coordInfoVecs.nodeLocX[ev2] - coordInfoVecs.nodeLocX[ev1]) +
+System_nonHillFunction.cu:						double r1x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_1[k]];
+System_nonHillFunction.cu:						double r2x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_2[k]];
+System_nonHillFunction.cu:						double r3x = coordInfoVecs.nodeLocX[coordInfoVecs.triangles2Nodes_3[k]];
+System_nonHillFunction.cu:					current_center_x += coordInfoVecs.nodeLocX[k];
+System_nonHillFunction.cu:					current_center_y += coordInfoVecs.nodeLocX[k];
+System_nonHillFunction.cu:				// double edge_mdpt_x = (coordInfoVecs.nodeLocX[coordInfoVecs.edges2Nodes_1[boundary_edge_list[y]]] +
+System_nonHillFunction.cu:				// 						coordInfoVecs.nodeLocX[coordInfoVecs.edges2Nodes_2[boundary_edge_list[y]]])/2.0;
+System_nonHillFunction.cu:			// std::cout<<"location of max conc triangle: "<<coordInfoVecs.nodeLocX[max_conc_triNode1]<<", "<<coordInfoVecs.nodeLocY[max_conc_triNode1]<<", "<<coordInfoVecs.nodeLocZ[max_conc_triNode1]<<std::endl;
+System_nonHillFunction.cu:			// std::cout<<"location of max conc triangle: "<<coordInfoVecs.nodeLocX[max_conc_triNode2]<<", "<<coordInfoVecs.nodeLocY[max_conc_triNode2]<<", "<<coordInfoVecs.nodeLocZ[max_conc_triNode2]<<std::endl;
+System_nonHillFunction.cu:			// std::cout<<"location of max conc triangle: "<<coordInfoVecs.nodeLocX[max_conc_triNode3]<<", "<<coordInfoVecs.nodeLocY[max_conc_triNode3]<<", "<<coordInfoVecs.nodeLocZ[max_conc_triNode3]<<std::endl;
+System_nonHillFunction.cu:						// double edge_mdpt_x = (coordInfoVecs.nodeLocX[coordInfoVecs.edges2Nodes_1[y]] +
+System_nonHillFunction.cu:						// 					coordInfoVecs.nodeLocX[coordInfoVecs.edges2Nodes_2[y]])/2.0;
+System_nonHillFunction.cu:						// double current_edge_to_tip_dist = sqrt(pow(coordInfoVecs.nodeLocX[max_height_index] - edge_mdpt_x,2.0) + pow(coordInfoVecs.nodeLocY[max_height_index] - edge_mdpt_y,2.0) + pow(coordInfoVecs.nodeLocZ[max_height_index] - edge_mdpt_z,2.0));
+System_nonHillFunction.cu:	generalParams.maxNodeCount = hostSetInfoVecs.nodeLocX.size();
+System_nonHillFunction.cu:	coordInfoVecs.isNodeFixed.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size(),false);
+System_nonHillFunction.cu:	coordInfoVecs.prevNodeLocX.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	coordInfoVecs.prevNodeLocY.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	coordInfoVecs.prevNodeLocZ.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	coordInfoVecs.prevNodeForceX.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	coordInfoVecs.prevNodeForceY.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	coordInfoVecs.prevNodeForceZ.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	coordInfoVecs.nodeLocX.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	coordInfoVecs.nodeLocY.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	coordInfoVecs.nodeLocZ.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	coordInfoVecs.nodeForceX.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size(), 0.0);
+System_nonHillFunction.cu:	coordInfoVecs.nodeForceY.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size(), 0.0);
+System_nonHillFunction.cu:	coordInfoVecs.nodeForceZ.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size(), 0.0);
+System_nonHillFunction.cu:	thrust::copy(hostSetInfoVecs.nodeLocX.begin(), hostSetInfoVecs.nodeLocX.end(), coordInfoVecs.prevNodeLocX.begin() );
+System_nonHillFunction.cu:	thrust::copy(hostSetInfoVecs.nodeLocX.begin(), hostSetInfoVecs.nodeLocX.end(), coordInfoVecs.nodeLocX.begin() );
+System_nonHillFunction.cu:	hostSetInfoVecs.isNodeFixed.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	//hostSetInfoVecs.prevNodeLocX.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	//hostSetInfoVecs.prevNodeLocY.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	//hostSetInfoVecs.prevNodeLocZ.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	//hostSetInfoVecs.prevNodeForceX.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	//hostSetInfoVecs.prevNodeForceY.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	//hostSetInfoVecs.prevNodeForceZ.resize(mem_prealloc*hostSetInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	hostSetInfoVecs.nodeLocX.resize(coordInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	hostSetInfoVecs.nodeLocY.resize(coordInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	hostSetInfoVecs.nodeLocZ.resize(coordInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	std::cout<<"Host_nodeLocX size = "<<hostSetInfoVecs.nodeLocX.size()<<std::endl;
+System_nonHillFunction.cu:	hostSetInfoVecs.nodeForceX.resize(coordInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	hostSetInfoVecs.nodeForceY.resize(coordInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	hostSetInfoVecs.nodeForceZ.resize(coordInfoVecs.nodeLocX.size());
+System_nonHillFunction.cu:	std::cout<<"Host_nodeForceX size = "<<hostSetInfoVecs.nodeLocX.size()<<std::endl;
+System_nonHillFunction.cu:	//double maxX_lj = *(thrust::max_element(coordInfoVecs.nodeLocX.begin(),coordInfoVecs.nodeLocX.end()));
+System_nonHillFunction.cu:	//double minX_lj = *(thrust::min_element(coordInfoVecs.nodeLocX.begin(),coordInfoVecs.nodeLocX.end()));
+System_nonHillFunction.cu:	for (int i = 0; i < hostSetInfoVecs.nodeLocX.size(); i++ ) {
+System_nonHillFunction.cu:		double xLoc = hostSetInfoVecs.nodeLocX[i];
+TurgorForce.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+VolumeComp.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+VolumeSprings.cu:            thrust::raw_pointer_cast(coordInfoVecs.nodeLocX.data()),
+Edgeswap_test.cpp:                    double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Edgeswap_test.cpp:                    //double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Edgeswap_test.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Edgeswap_test.cpp:                //double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Edgeswap_test.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Edgeswap_test.cpp:                double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Edgeswap_test.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Edgeswap_test.cpp:                double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Edgeswap_test.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Edgeswap_test.cpp:                double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Edgeswap_test.cpp:                    double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Edgeswap_test.cpp:                    //double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Edgeswap_test.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Edgeswap_test.cpp:                //double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Edgeswap_test.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Edgeswap_test.cpp:                double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Edgeswap_test.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Edgeswap_test.cpp:                double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Edgeswap_test.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Edgeswap_test.cpp:                double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Edgeswap_test.cpp:        double vec1x = coordInfoVecs.nodeLocX[node2] - coordInfoVecs.nodeLocX[node1];
+Edgeswap_test.cpp:        double vec2x = coordInfoVecs.nodeLocX[node3] - coordInfoVecs.nodeLocX[node1];
+Edgeswap_test.cpp:            double a = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n2] - hostSetInfoVecs.nodeLocX[H0n1]),2.0) + 
+Edgeswap_test.cpp:            double b = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n3] - hostSetInfoVecs.nodeLocX[H0n1]),2.0) + 
+Edgeswap_test.cpp:            double c = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n3] - hostSetInfoVecs.nodeLocX[H0n2]),2.0) + 
+Edgeswap_test.cpp:            double d = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n2] - hostSetInfoVecs.nodeLocX[T0n1]),2.0) + 
+Edgeswap_test.cpp:            double e = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n3] - hostSetInfoVecs.nodeLocX[T0n1]),2.0) + 
+Edgeswap_test.cpp:            double f = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n3] - hostSetInfoVecs.nodeLocX[T0n2]),2.0) + 
+Edgeswap_test.cpp:		double newx = (hostSetInfoVecs.nodeLocX[hostSetInfoVecs.edges2Nodes_1[iedge]] + hostSetInfoVecs.nodeLocX[hostSetInfoVecs.edges2Nodes_2[iedge]])/2.0;
+Edgeswap_test.cpp:		hostSetInfoVecs.nodeLocX[generalParams. maxNodeCount] = newx;
+Edgeswap_test.cpp:		//These are the coordinate of the new vertex. Its index is "hostSetInfoVecs.nodeLocX.size()-1"
+Edgeswap_test.cpp:		//int NODESIZE= generalParams.maxNodeCount;//hostSetInfoVecs.nodeLocX.size();
+Edgeswap_test.cpp:            double R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[TAIL] - hostSetInfoVecs.nodeLocX[HEAD])*(hostSetInfoVecs.nodeLocX[TAIL] - hostSetInfoVecs.nodeLocX[HEAD]) +
+Edgeswap_test.cpp:                            P0x_vol1 = hostSetInfoVecs.nodeLocX[Tri1_n1];
+Edgeswap_test.cpp:                        N1vec1x = hostSetInfoVecs.nodeLocX[Tri1_n2] - hostSetInfoVecs.nodeLocX[Tri1_n1];
+Edgeswap_test.cpp:                        N1vec2x = hostSetInfoVecs.nodeLocX[Tri1_n3] - hostSetInfoVecs.nodeLocX[Tri1_n1];
+Edgeswap_test.cpp:                            P0x_vol2 = hostSetInfoVecs.nodeLocX[Tri2_n1];
+Edgeswap_test.cpp:                        N2vec1x = hostSetInfoVecs.nodeLocX[Tri2_n2] - hostSetInfoVecs.nodeLocX[Tri2_n1];
+Edgeswap_test.cpp:                        N2vec2x = hostSetInfoVecs.nodeLocX[Tri2_n3] - hostSetInfoVecs.nodeLocX[Tri2_n1];
+Edgeswap_test.cpp:                            R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa])*(hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa]) +
+Edgeswap_test.cpp:                            R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa])*(hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa]) +
+Edgeswap_test.cpp:                // R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu2])*(hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu2]) +
+Edgeswap_test.cpp:                // R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu3])*(hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu3]) +
+Edgeswap_test.cpp:                pow(hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[edge_start], 2.0) + 
+Edgeswap_test.cpp:                pow(hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[edge_start], 2.0) + 
+Edgeswap_test.cpp:                pow(hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[edge_start], 2.0) + 
+Edgeswap_test.cpp:            double a = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n2] - hostSetInfoVecs.nodeLocX[H0n1]),2.0) + 
+Edgeswap_test.cpp:            double b = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n3] - hostSetInfoVecs.nodeLocX[H0n1]),2.0) + 
+Edgeswap_test.cpp:            double c = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n3] - hostSetInfoVecs.nodeLocX[H0n2]),2.0) + 
+Edgeswap_test.cpp:            double d = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n2] - hostSetInfoVecs.nodeLocX[T0n1]),2.0) + 
+Edgeswap_test.cpp:            double e = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n3] - hostSetInfoVecs.nodeLocX[T0n1]),2.0) + 
+Edgeswap_test.cpp:            double f = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n3] - hostSetInfoVecs.nodeLocX[T0n2]),2.0) + 
+Edgeswap_test.cpp:                if (H1t1 == H0){H1t1_vec1x = hostSetInfoVecs.nodeLocX[edge_start] - hostSetInfoVecs.nodeLocX[HEAD];
+Edgeswap_test.cpp:                                H1t1_vec2x = hostSetInfoVecs.nodeLocX[TAIL] - hostSetInfoVecs.nodeLocX[HEAD];
+Edgeswap_test.cpp:                                H1t2_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[H1t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H1t2]];
+Edgeswap_test.cpp:                                H1t2_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[H1t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H1t2]];
+Edgeswap_test.cpp:                else if (H1t2 == H0){H1t2_vec1x = hostSetInfoVecs.nodeLocX[edge_start] - hostSetInfoVecs.nodeLocX[HEAD];
+Edgeswap_test.cpp:                                H1t2_vec2x = hostSetInfoVecs.nodeLocX[TAIL] - hostSetInfoVecs.nodeLocX[HEAD];
+Edgeswap_test.cpp:                                H1t1_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[H1t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H1t1]];
+Edgeswap_test.cpp:                                H1t1_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[H1t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H1t1]];
+Edgeswap_test.cpp:                                H2t1_vec1x = hostSetInfoVecs.nodeLocX[TAIL] - hostSetInfoVecs.nodeLocX[HEAD];
+Edgeswap_test.cpp:                                H2t1_vec2x = hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[HEAD];
+Edgeswap_test.cpp:                                H2t2_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[H2t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H2t2]];
+Edgeswap_test.cpp:                                H2t2_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[H2t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H2t2]];
+Edgeswap_test.cpp:                                H2t2_vec1x = hostSetInfoVecs.nodeLocX[TAIL] - hostSetInfoVecs.nodeLocX[HEAD];
+Edgeswap_test.cpp:                                H2t2_vec2x = hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[HEAD];
+Edgeswap_test.cpp:                                H2t1_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[H2t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H2t1]];
+Edgeswap_test.cpp:                                H2t1_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[H2t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H2t1]];
+Edgeswap_test.cpp:                                T1t1_vec1x = hostSetInfoVecs.nodeLocX[HEAD] - hostSetInfoVecs.nodeLocX[TAIL];
+Edgeswap_test.cpp:                                T1t1_vec2x = hostSetInfoVecs.nodeLocX[edge_start] - hostSetInfoVecs.nodeLocX[TAIL];
+Edgeswap_test.cpp:                                T1t2_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[T1t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T1t2]];
+Edgeswap_test.cpp:                                T1t2_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[T1t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T1t2]];
+Edgeswap_test.cpp:                                T1t2_vec1x = hostSetInfoVecs.nodeLocX[HEAD] - hostSetInfoVecs.nodeLocX[TAIL];
+Edgeswap_test.cpp:                                T1t2_vec2x = hostSetInfoVecs.nodeLocX[edge_start] - hostSetInfoVecs.nodeLocX[TAIL];
+Edgeswap_test.cpp:                                T1t1_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[T1t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T1t1]];
+Edgeswap_test.cpp:                                T1t1_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[T1t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T1t1]];
+Edgeswap_test.cpp:                if (T2t1 == T0){T2t1_vec1x = hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[TAIL];
+Edgeswap_test.cpp:                                T2t1_vec2x = hostSetInfoVecs.nodeLocX[HEAD] - hostSetInfoVecs.nodeLocX[TAIL];
+Edgeswap_test.cpp:                                T2t2_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[T2t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T2t2]];
+Edgeswap_test.cpp:                                T2t2_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[T2t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T2t2]];
+Edgeswap_test.cpp:                                T2t2_vec1x = hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[TAIL];
+Edgeswap_test.cpp:                                T2t2_vec2x = hostSetInfoVecs.nodeLocX[HEAD] - hostSetInfoVecs.nodeLocX[TAIL];
+Edgeswap_test.cpp:                                T2t1_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[T2t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T2t1]];
+Edgeswap_test.cpp:                                T2t1_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[T2t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T2t1]];
+Edgeswap_test.cpp:            pow(hostSetInfoVecs.nodeLocX[HEAD] - hostSetInfoVecs.nodeLocX[TAIL], 2.0) + 
+Edgeswap_test.cpp:            R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[edge_start] - hostSetInfoVecs.nodeLocX[edge_end])*(hostSetInfoVecs.nodeLocX[edge_start] - hostSetInfoVecs.nodeLocX[edge_end]) +
+Edgeswap_test.cpp:                            N1_vec1x = hostSetInfoVecs.nodeLocX[HEAD] - hostSetInfoVecs.nodeLocX[TAIL];//x component of the 1st vector to calculate N1
+Edgeswap_test.cpp:                            N1_vec2x = hostSetInfoVecs.nodeLocX[edge_start] - hostSetInfoVecs.nodeLocX[TAIL];//x component of the 2nd vector to calculate N1
+Edgeswap_test.cpp:                            N2_vec1x = hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[TAIL];
+Edgeswap_test.cpp:                            N2_vec2x = hostSetInfoVecs.nodeLocX[HEAD] - hostSetInfoVecs.nodeLocX[TAIL];
+Edgeswap_test.cpp:                            P0x_vol1 = hostSetInfoVecs.nodeLocX[HEAD];
+Edgeswap_test.cpp:                            P0x_vol2 = hostSetInfoVecs.nodeLocX[HEAD];
+Edgeswap_test.cpp:                            R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa])*(hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa]) +
+Edgeswap_test.cpp:                            R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa])*(hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa]) +
+Edgeswap_test.cpp:                // R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu2])*(hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu2]) +
+Edgeswap_test.cpp:                // R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu3])*(hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu3]) +
+Edgeswap_test.cpp:                double a = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n2] - hostSetInfoVecs.nodeLocX[H0n1]),2.0) + 
+Edgeswap_test.cpp:                double b = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n3] - hostSetInfoVecs.nodeLocX[H0n1]),2.0) + 
+Edgeswap_test.cpp:                double c = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n3] - hostSetInfoVecs.nodeLocX[H0n2]),2.0) + 
+Edgeswap_test.cpp:                double d = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n2] - hostSetInfoVecs.nodeLocX[T0n1]),2.0) + 
+Edgeswap_test.cpp:                double e = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n3] - hostSetInfoVecs.nodeLocX[T0n1]),2.0) + 
+Edgeswap_test.cpp:                double f = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n3] - hostSetInfoVecs.nodeLocX[T0n2]),2.0) + 
+Edgeswap_test.cpp:    thrust::copy(coordInfoVecs.nodeLocX.begin(),coordInfoVecs.nodeLocX.end(),hostSetInfoVecs.nodeLocX.begin());
+Edgeswap_test.cpp:    thrust::copy(hostSetInfoVecs.nodeLocX.begin(),hostSetInfoVecs.nodeLocX.end(),coordInfoVecs.nodeLocX.begin());
+Storage.cpp:	 	statesOutput << "node_count " << SYSTEM->coordInfoVecs.nodeLocX.size() << '\n';
+Storage.cpp:			double xPos = SYSTEM->coordInfoVecs.nodeLocX[i];
+Storage.cpp:			double xL = SYSTEM->coordInfoVecs.nodeLocX[idA];
+Storage.cpp:			double xR = SYSTEM->coordInfoVecs.nodeLocX[idB];
+Storage.cpp:	// 		double xPos = SYSTEM->coordInfoVecs_daughter.nodeLocX[i];
+Storage.cpp:	// 		double xL = SYSTEM->coordInfoVecs_daughter.nodeLocX[idA];
+Storage.cpp:	// 		double xR = SYSTEM->coordInfoVecs_daughter.nodeLocX[idB];
+Storage.cpp:		/*for (int i = 0; i < SYSTEM->coordInfoVecs.num_edges; i++){//SYSTEM->coordInfoVecs.nodeLocX.size(); i++) {
+Storage.cpp:		for (int i = 0; i < SYSTEM->generalParams.maxNodeCount; i++){//SYSTEM->coordInfoVecs.nodeLocX.size(); i++) {
+Storage.cpp:			double x = SYSTEM->coordInfoVecs.nodeLocX[i];
+SystemBuilder.cpp:	hostSetInfoVecs.nodeLocX.push_back(x);
+SystemBuilder.cpp:	double xL = hostSetInfoVecs.nodeLocX[idL];
+SystemBuilder.cpp:	double xR = hostSetInfoVecs.nodeLocX[idR];
+SystemBuilder.cpp://	hostSetInfoVecs.nodeLocX.push_back(x);
+SystemBuilder.cpp://	double xL = hostSetInfoVecs.nodeLocX[idL];
+SystemBuilder.cpp://	double xR = hostSetInfoVecs.nodeLocX[idR];
+Utilities.cpp:                    double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Utilities.cpp:                    //double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Utilities.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Utilities.cpp:                //double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Utilities.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Utilities.cpp:                double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Utilities.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Utilities.cpp:                double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Utilities.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Utilities.cpp:                double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Utilities.cpp:                    double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Utilities.cpp:                    //double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Utilities.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Utilities.cpp:                //double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Utilities.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Utilities.cpp:                double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Utilities.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Utilities.cpp:                double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Utilities.cpp:                double avg_x = (hostSetInfoVecs.nodeLocX[v1] + hostSetInfoVecs.nodeLocX[v2])/2.0;
+Utilities.cpp:                double dtt = sqrt((hostSetInfoVecs.nodeLocX[max_height_index] - avg_x)*(hostSetInfoVecs.nodeLocX[max_height_index] - avg_x) +
+Utilities.cpp:        double vec1x = coordInfoVecs.nodeLocX[node2] - coordInfoVecs.nodeLocX[node1];
+Utilities.cpp:        double vec2x = coordInfoVecs.nodeLocX[node3] - coordInfoVecs.nodeLocX[node1];
+Utilities.cpp:            double a = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n2] - hostSetInfoVecs.nodeLocX[H0n1]),2.0) + 
+Utilities.cpp:            double b = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n3] - hostSetInfoVecs.nodeLocX[H0n1]),2.0) + 
+Utilities.cpp:            double c = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n3] - hostSetInfoVecs.nodeLocX[H0n2]),2.0) + 
+Utilities.cpp:            double d = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n2] - hostSetInfoVecs.nodeLocX[T0n1]),2.0) + 
+Utilities.cpp:            double e = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n3] - hostSetInfoVecs.nodeLocX[T0n1]),2.0) + 
+Utilities.cpp:            double f = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n3] - hostSetInfoVecs.nodeLocX[T0n2]),2.0) + 
+Utilities.cpp:            double a = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n2] - hostSetInfoVecs.nodeLocX[H0n1]),2.0) + 
+Utilities.cpp:            double b = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n3] - hostSetInfoVecs.nodeLocX[H0n1]),2.0) + 
+Utilities.cpp:            double c = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n3] - hostSetInfoVecs.nodeLocX[H0n2]),2.0) + 
+Utilities.cpp:            double d = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n2] - hostSetInfoVecs.nodeLocX[T0n1]),2.0) + 
+Utilities.cpp:            double e = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n3] - hostSetInfoVecs.nodeLocX[T0n1]),2.0) + 
+Utilities.cpp:            double f = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n3] - hostSetInfoVecs.nodeLocX[T0n2]),2.0) + 
+Utilities.cpp:		double newx = (hostSetInfoVecs.nodeLocX[hostSetInfoVecs.edges2Nodes_1[iedge]] + hostSetInfoVecs.nodeLocX[hostSetInfoVecs.edges2Nodes_2[iedge]])/2.0;
+Utilities.cpp:		hostSetInfoVecs.nodeLocX[generalParams. maxNodeCount] = newx;
+Utilities.cpp:		//These are the coordinate of the new vertex. Its index is "hostSetInfoVecs.nodeLocX.size()-1"
+Utilities.cpp:		//int NODESIZE= generalParams.maxNodeCount;//hostSetInfoVecs.nodeLocX.size();
+Utilities.cpp:        double midpoint_x = (hostSetInfoVecs.nodeLocX[edge_start] + hostSetInfoVecs.nodeLocX[edge_end])/2.0;
+Utilities.cpp:            double R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[TAIL] - hostSetInfoVecs.nodeLocX[HEAD])*(hostSetInfoVecs.nodeLocX[TAIL] - hostSetInfoVecs.nodeLocX[HEAD]) +
+Utilities.cpp:                            P0x_vol1 = hostSetInfoVecs.nodeLocX[Tri1_n1];
+Utilities.cpp:                        N1vec1x = hostSetInfoVecs.nodeLocX[Tri1_n2] - hostSetInfoVecs.nodeLocX[Tri1_n1];
+Utilities.cpp:                        N1vec2x = hostSetInfoVecs.nodeLocX[Tri1_n3] - hostSetInfoVecs.nodeLocX[Tri1_n1];
+Utilities.cpp:                            P0x_vol2 = hostSetInfoVecs.nodeLocX[Tri2_n1];
+Utilities.cpp:                        N2vec1x = hostSetInfoVecs.nodeLocX[Tri2_n2] - hostSetInfoVecs.nodeLocX[Tri2_n1];
+Utilities.cpp:                        N2vec2x = hostSetInfoVecs.nodeLocX[Tri2_n3] - hostSetInfoVecs.nodeLocX[Tri2_n1];
+Utilities.cpp:                            R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa])*(hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa]) +
+Utilities.cpp:                            R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa])*(hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa]) +
+Utilities.cpp:                // R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu2])*(hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu2]) +
+Utilities.cpp:                // R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu3])*(hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu3]) +
+Utilities.cpp:                pow(hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[edge_start], 2.0) + 
+Utilities.cpp:                pow(hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[edge_start], 2.0) + 
+Utilities.cpp:                pow(hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[edge_start], 2.0) + 
+Utilities.cpp:            double a = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n2] - hostSetInfoVecs.nodeLocX[H0n1]),2.0) + 
+Utilities.cpp:            double b = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n3] - hostSetInfoVecs.nodeLocX[H0n1]),2.0) + 
+Utilities.cpp:            double c = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n3] - hostSetInfoVecs.nodeLocX[H0n2]),2.0) + 
+Utilities.cpp:            double d = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n2] - hostSetInfoVecs.nodeLocX[T0n1]),2.0) + 
+Utilities.cpp:            double e = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n3] - hostSetInfoVecs.nodeLocX[T0n1]),2.0) + 
+Utilities.cpp:            double f = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n3] - hostSetInfoVecs.nodeLocX[T0n2]),2.0) + 
+Utilities.cpp:                if (H1t1 == H0){H1t1_vec1x = hostSetInfoVecs.nodeLocX[edge_start] - hostSetInfoVecs.nodeLocX[HEAD];
+Utilities.cpp:                                H1t1_vec2x = hostSetInfoVecs.nodeLocX[TAIL] - hostSetInfoVecs.nodeLocX[HEAD];
+Utilities.cpp:                                H1t2_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[H1t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H1t2]];
+Utilities.cpp:                                H1t2_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[H1t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H1t2]];
+Utilities.cpp:                else if (H1t2 == H0){H1t2_vec1x = hostSetInfoVecs.nodeLocX[edge_start] - hostSetInfoVecs.nodeLocX[HEAD];
+Utilities.cpp:                                H1t2_vec2x = hostSetInfoVecs.nodeLocX[TAIL] - hostSetInfoVecs.nodeLocX[HEAD];
+Utilities.cpp:                                H1t1_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[H1t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H1t1]];
+Utilities.cpp:                                H1t1_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[H1t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H1t1]];
+Utilities.cpp:                                H2t1_vec1x = hostSetInfoVecs.nodeLocX[TAIL] - hostSetInfoVecs.nodeLocX[HEAD];
+Utilities.cpp:                                H2t1_vec2x = hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[HEAD];
+Utilities.cpp:                                H2t2_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[H2t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H2t2]];
+Utilities.cpp:                                H2t2_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[H2t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H2t2]];
+Utilities.cpp:                                H2t2_vec1x = hostSetInfoVecs.nodeLocX[TAIL] - hostSetInfoVecs.nodeLocX[HEAD];
+Utilities.cpp:                                H2t2_vec2x = hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[HEAD];
+Utilities.cpp:                                H2t1_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[H2t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H2t1]];
+Utilities.cpp:                                H2t1_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[H2t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[H2t1]];
+Utilities.cpp:                                T1t1_vec1x = hostSetInfoVecs.nodeLocX[HEAD] - hostSetInfoVecs.nodeLocX[TAIL];
+Utilities.cpp:                                T1t1_vec2x = hostSetInfoVecs.nodeLocX[edge_start] - hostSetInfoVecs.nodeLocX[TAIL];
+Utilities.cpp:                                T1t2_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[T1t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T1t2]];
+Utilities.cpp:                                T1t2_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[T1t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T1t2]];
+Utilities.cpp:                                T1t2_vec1x = hostSetInfoVecs.nodeLocX[HEAD] - hostSetInfoVecs.nodeLocX[TAIL];
+Utilities.cpp:                                T1t2_vec2x = hostSetInfoVecs.nodeLocX[edge_start] - hostSetInfoVecs.nodeLocX[TAIL];
+Utilities.cpp:                                T1t1_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[T1t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T1t1]];
+Utilities.cpp:                                T1t1_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[T1t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T1t1]];
+Utilities.cpp:                if (T2t1 == T0){T2t1_vec1x = hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[TAIL];
+Utilities.cpp:                                T2t1_vec2x = hostSetInfoVecs.nodeLocX[HEAD] - hostSetInfoVecs.nodeLocX[TAIL];
+Utilities.cpp:                                T2t2_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[T2t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T2t2]];
+Utilities.cpp:                                T2t2_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[T2t2]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T2t2]];
+Utilities.cpp:                                T2t2_vec1x = hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[TAIL];
+Utilities.cpp:                                T2t2_vec2x = hostSetInfoVecs.nodeLocX[HEAD] - hostSetInfoVecs.nodeLocX[TAIL];
+Utilities.cpp:                                T2t1_vec1x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_2[T2t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T2t1]];
+Utilities.cpp:                                T2t1_vec2x = hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_3[T2t1]] - hostSetInfoVecs.nodeLocX[hostSetInfoVecs.triangles2Nodes_1[T2t1]];
+Utilities.cpp:            pow(hostSetInfoVecs.nodeLocX[HEAD] - hostSetInfoVecs.nodeLocX[TAIL], 2.0) + 
+Utilities.cpp:            R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[edge_start] - hostSetInfoVecs.nodeLocX[edge_end])*(hostSetInfoVecs.nodeLocX[edge_start] - hostSetInfoVecs.nodeLocX[edge_end]) +
+Utilities.cpp:                            N1_vec1x = hostSetInfoVecs.nodeLocX[HEAD] - hostSetInfoVecs.nodeLocX[TAIL];//x component of the 1st vector to calculate N1
+Utilities.cpp:                            N1_vec2x = hostSetInfoVecs.nodeLocX[edge_start] - hostSetInfoVecs.nodeLocX[TAIL];//x component of the 2nd vector to calculate N1
+Utilities.cpp:                            N2_vec1x = hostSetInfoVecs.nodeLocX[edge_end] - hostSetInfoVecs.nodeLocX[TAIL];
+Utilities.cpp:                            N2_vec2x = hostSetInfoVecs.nodeLocX[HEAD] - hostSetInfoVecs.nodeLocX[TAIL];
+Utilities.cpp:                            P0x_vol1 = hostSetInfoVecs.nodeLocX[HEAD];
+Utilities.cpp:                            P0x_vol2 = hostSetInfoVecs.nodeLocX[HEAD];
+Utilities.cpp:                            R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa])*(hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa]) +
+Utilities.cpp:                            R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa])*(hostSetInfoVecs.nodeLocX[startpt] - hostSetInfoVecs.nodeLocX[aa]) +
+Utilities.cpp:                // R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu2])*(hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu2]) +
+Utilities.cpp:                // R_TAIL_HEAD = sqrt((hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu3])*(hostSetInfoVecs.nodeLocX[oiu1] - hostSetInfoVecs.nodeLocX[oiu3]) +
+Utilities.cpp:                double a = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n2] - hostSetInfoVecs.nodeLocX[H0n1]),2.0) + 
+Utilities.cpp:                double b = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n3] - hostSetInfoVecs.nodeLocX[H0n1]),2.0) + 
+Utilities.cpp:                double c = sqrt(pow((hostSetInfoVecs.nodeLocX[H0n3] - hostSetInfoVecs.nodeLocX[H0n2]),2.0) + 
+Utilities.cpp:                double d = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n2] - hostSetInfoVecs.nodeLocX[T0n1]),2.0) + 
+Utilities.cpp:                double e = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n3] - hostSetInfoVecs.nodeLocX[T0n1]),2.0) + 
+Utilities.cpp:                double f = sqrt(pow((hostSetInfoVecs.nodeLocX[T0n3] - hostSetInfoVecs.nodeLocX[T0n2]),2.0) + 
+Utilities.cpp:    thrust::copy(coordInfoVecs.nodeLocX.begin(),coordInfoVecs.nodeLocX.end(),hostSetInfoVecs.nodeLocX.begin());
+Utilities.cpp:    thrust::copy(hostSetInfoVecs.nodeLocX.begin(),hostSetInfoVecs.nodeLocX.end(),coordInfoVecs.nodeLocX.begin());
+Utilities.cpp:        element.center[0] = (coordInfoVecs.nodeLocX[vt1] + coordInfoVecs.nodeLocX[vt2] + coordInfoVecs.nodeLocX[vt3])/3.0;
+Utilities.cpp:        element.length_side[0] = sqrt((coordInfoVecs.nodeLocX[e1v[1]] - coordInfoVecs.nodeLocX[e1v[0]])*(coordInfoVecs.nodeLocX[e1v[1]] - coordInfoVecs.nodeLocX[e1v[0]]) +
+Utilities.cpp:        element.length_side[1] = sqrt((coordInfoVecs.nodeLocX[e2v[1]] - coordInfoVecs.nodeLocX[e2v[0]])*(coordInfoVecs.nodeLocX[e2v[1]] - coordInfoVecs.nodeLocX[e2v[0]]) +
+Utilities.cpp:        element.length_side[2] = sqrt((coordInfoVecs.nodeLocX[e3v[1]] - coordInfoVecs.nodeLocX[e3v[0]])*(coordInfoVecs.nodeLocX[e3v[1]] - coordInfoVecs.nodeLocX[e3v[0]]) +
+Utilities.cpp:        element.out_norm.x[1] = (coordInfoVecs.nodeLocX[vt2] - coordInfoVecs.nodeLocX[vt1])*
+Utilities.cpp:                                    (coordInfoVecs.nodeLocX[vt3] - coordInfoVecs.nodeLocX[vt3])*
+Utilities.cpp:        element.out_norm.x[2] = (coordInfoVecs.nodeLocX[vt2] - coordInfoVecs.nodeLocX[vt1])*
+Utilities.cpp:                                    (coordInfoVecs.nodeLocX[vt3] - coordInfoVecs.nodeLocX[vt3])*
