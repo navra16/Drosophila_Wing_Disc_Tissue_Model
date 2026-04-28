@@ -1,19 +1,19 @@
 # Drosophila Wing Disc Eversion Tissue Model
 
-A 3D, multi-layer, GPU-accelerated computational model of Drosophila wing disc eversion. Starting from a triangulated dome representing the wing pouch at wandering third instar (wL3), the simulation applies a region-specific active strain field to drive the morphological changes that occur over the wL3 ? 4 hours after puparium formation (4hAPF) window.
+A 3D, multi-layer, GPU-accelerated computational model of Drosophila wing disc eversion. Starting from a triangulated dome representing the wing pouch at wandering third instar (wL3), the simulation applies a region-specific active strain field to drive the morphological changes that occur over the wL3 - 4 hours after puparium formation (4hAPF) window.
 
-The mesh is composed of stacked layers (apical, body, basal) connected by linear, area, and bending springs, plus a per-prism volume-conservation term. The strain field formulation extends the active shape programming framework of Fuhrmann et al. (Science Advances, 2024) — which applied strain only to the apical surface of a thin shell — to a fully three-dimensional multi-layer mesh, with a separate dorsoventral (DV) boundary stripe receiving its own lambda values.
+The mesh is composed of stacked layers (apical, body, basal) connected by linear, area, and bending springs, plus a per-prism volume-conservation term. The strain field formulation extends the active shape programming framework of Fuhrmann et al. (Science Advances, 2024) â€” which applied strain only to the apical surface of a thin shell â€” to a fully three-dimensional multi-layer mesh, with a separate dorsoventral (DV) boundary stripe receiving its own lambda values.
 
 ## What this code does
 
 Given an input mesh and a schedule of lambda parameters defining the strain field, the simulation:
 
 1. Initializes the mesh and computes a per-vertex orthonormal basis (e_R, e_phi, e_h) using the geometry described in Fuhrmann et al. 2024.
-2. Constructs a spontaneous-strain tensor ? at each vertex using lambda values that differ between the inDV (DV stripe) and outDV regions.
-3. Projects ? onto each edge to compute new rest lengths.
+2. Constructs a spontaneous-strain tensor at each vertex using lambda values that differ between the inDV (DV stripe) and outDV regions.
+3. Projects lambda onto each edge to compute new rest lengths.
 4. Relaxes the mesh to mechanical equilibrium under linear-spring, volume-conservation, and (optionally) bending and area forces.
-5. Repeats over a 3-stage schedule (wL3 ? 0hAPF ? 2hAPF ? 4hAPF) with intermediate stage targets pulled from Fuhrmann's `input_lambda_df.csv`.
-6. Pulls volume targets at each stage from biological measurements in Liu, O'Connell, Wall & Carthew (2024, *eLife* 12:RP91572).
+5. Repeats over a 3-stage schedule (wL3 -- 0hAPF -- 2hAPF -- 4hAPF) with intermediate stage targets pulled from Fuhrmann's `input_lambda_df.csv`.
+6. Pulls volume targets from biological measurements in Liu, O'Connell, Wall & Carthew (2024, *eLife* 12:RP91572).
 
 VTK frames are written every substep so the trajectory can be visualized and analyzed.
 
@@ -36,7 +36,7 @@ The general flow of simulation steps is implemented in `void System::solveSystem
 
 1. **Initialization** of global parameters and data structures (XML mesh load, layer flags, prism construction, edge classification).
 2. **Initial relaxation**: a predetermined number of relaxation steps to bring the mesh to quasi-steady state with no applied strain.
-3. **Main loop** — for each stage (wL3 ? 0hAPF, ? 2hAPF, ? 4hAPF):
+3. **Main loop** â€” for each stage (wL3 -- 0hAPF, -- 2hAPF, -- 4hAPF):
    - Update lambda parameters for the current stage from the pre-computed `lam_per_stage` table.
    - Pre-compute the edge target rest lengths by applying that stage's lambdas to the wL3 reference geometry.
    - Within the stage, ramp `edge_rest_length` linearly from the previous stage's target to the current stage's target across `Nsteps` substeps.
@@ -49,7 +49,7 @@ The general flow of simulation steps is implemented in `void System::solveSystem
 1. Make sure you have every file and folder in this repository in your HPCC account (clone the repo: `git clone https://github.com/navra16/Drosophila_Wing_Disc_Eversion_Tissue_Model`).
 2. `cd` into the folder containing `System.cu`, `Makefile`, and the SBATCH script.
 3. `module load cuda; module load cmake`
-4. `make` (or `make -j N` where N is 2-12, only if you are in an interactive GPU session — see UCR HPCC docs).
+4. `make` (or `make -j N` where N is 2-12, only if you are in an interactive GPU session â€” see UCR HPCC docs).
 5. `sbatch -p gpu --gres=gpu:1 --time=01:00:00 SBATCH_try_this_one_if_the_original_does_not_work.sh`
 
 ## Running the simulation on Notre Dame CRC
@@ -97,13 +97,13 @@ python3 postprocess_eversion.py \
 ```
 
 Flags:
-- `--vtk-dir` — directory containing the `_NNNNN.vtk` frame files (script picks up all matching files automatically and uses the latest by default)
-- `--log` — captured stdout from the simulation run, containing the `V_target = ... | V_curr = ...` lines
-- `--num-layers` — match what your mesh was built with (5 for the test mesh, 12 for the production res4 mesh)
-- `--out-dir` — output directory for the three PNGs (created if it doesn't exist)
-- `--frame-index N` — optional, plot a specific frame index instead of the last one
-- `--vtk-file path.vtk` — optional, use a single named VTK file instead of `--vtk-dir`
-- `--band-along F`, `--band-across F` — optional, in micrometers, controls the slice thickness for cross-sections (default 3.0)
+- `--vtk-dir` â€” directory containing the `_NNNNN.vtk` frame files (script picks up all matching files automatically and uses the latest by default)
+- `--log` â€” captured stdout from the simulation run, containing the `V_target = ... | V_curr = ...` lines
+- `--num-layers` â€” match what your mesh was built with (5 for the test mesh, 12 for the production res4 mesh)
+- `--out-dir` â€” output directory for the three PNGs (created if it doesn't exist)
+- `--frame-index N` â€” optional, plot a specific frame index instead of the last one
+- `--vtk-file path.vtk` â€” optional, use a single named VTK file instead of `--vtk-dir`
+- `--band-along F`, `--band-across F` â€” optional, in micrometers, controls the slice thickness for cross-sections (default 3.0)
 
 If you only have the log (no VTK files yet, simulation still running), pass just `--log` and the script will produce the volume plot only. If you only have a VTK file (no log), pass just `--vtk-file` or `--vtk-dir` and you'll get cross-sections and curvature only.
 
@@ -116,11 +116,11 @@ scp 'username@cluster.hpcc.ucr.edu:/path/to/figures/*.png' .
 
 ## References
 
-Fuhrmann, J. F., Krishna, A., Paijmans, J., Duclut, C., Cwikla, G., Eaton, S., Popovic, M., Jülicher, F., Modes, C. D., & Dye, N. A. (2024). *Active shape programming drives Drosophila wing disc eversion.* Science Advances. <https://www.science.org/doi/10.1126/sciadv.adp0860>
+Fuhrmann, J. F., Krishna, A., Paijmans, J., Duclut, C., Cwikla, G., Eaton, S., Popovic, M., JÃ¼licher, F., Modes, C. D., & Dye, N. A. (2024). *Active shape programming drives Drosophila wing disc eversion.* Science Advances. <https://www.science.org/doi/10.1126/sciadv.adp0860>
 
 Liu, Y., O'Connell, J. M., Wall, M. E., & Carthew, R. W. (2024). *Robust and rapid larva-to-pupa body shape transformation in Drosophila.* eLife 12:RP91572. <https://doi.org/10.7554/eLife.91572.3>
 
-Sui, L., Alt, S., Weigert, M., Dye, N., Eaton, S., Jug, F., Myers, E. W., Jülicher, F., Salbreux, G., & Dahmann, C. (2018). *Differential lateral and basal tension drive folding of Drosophila wing discs through two distinct mechanisms.* Nature Communications 9:4620. <https://doi.org/10.1038/s41467-018-06497-3>
+Sui, L., Alt, S., Weigert, M., Dye, N., Eaton, S., Jug, F., Myers, E. W., JÃ¼licher, F., Salbreux, G., & Dahmann, C. (2018). *Differential lateral and basal tension drive folding of Drosophila wing discs through two distinct mechanisms.* Nature Communications 9:4620. <https://doi.org/10.1038/s41467-018-06497-3>
 
 Tozluoglu, M., Maraspini, R., Sharma, M., Honigmann, A., & Mao, Y. (2020). *Epithelial organ shape is generated by patterned actomyosin contractility and maintained by the extracellular matrix.* bioRxiv. <https://doi.org/10.1101/2020.01.22.915272>
 
@@ -128,4 +128,4 @@ Nematbakhsh, A., Sun, W., Brodskiy, P. A., Amiri, A., Narciso, C., Xu, Z., Zartm
 
 ## Acknowledgments
 
-This implementation builds on previous work in the lab on tissue mechanics simulation. The strain field formulation is adapted from Fuhrmann et al. 2024, with extensions for multi-layer 3D meshes.
+This implementation builds on previous work in the lab on Yeast Budding simulation. The strain field formulation is adapted from Fuhrmann et al. 2024, with extensions for multi-layer 3D meshes.
