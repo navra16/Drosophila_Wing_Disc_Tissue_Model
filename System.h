@@ -6,6 +6,7 @@
 #include <fstream>
 #include <memory>
 #include <math.h>
+#include <vector>
 #include <thrust/extrema.h>
 #include <thrust/sort.h>
 #include <thrust/copy.h>
@@ -409,7 +410,7 @@ struct BendingTriangleInfoVecs {
 struct LinearSpringInfoVecs {
 
   // =====================================================================
-  // REGION × LAYER SPRING CONSTANTS (10 parameters)
+  // REGION ? LAYER SPRING CONSTANTS (10 parameters)
   //
   // Each horizontal edge is classified by BOTH its layer AND its D/V region.
   // Vertical edges get their own single constant.
@@ -429,22 +430,22 @@ struct LinearSpringInfoVecs {
   // Baked into edge_spring_k[] by buildEdgeSpringConstants().
   // =====================================================================
 
-  // Apical layer (layer N+1) — subdivided by D/V region
+  // Apical layer (layer N+1) ? subdivided by D/V region
   double k_apical_dorsal   = 3.0;
   double k_apical_ventral  = 3.0;
   double k_apical_DV       = 12.0;
 
-  // Body layers (layers 1..N) — subdivided by D/V region
+  // Body layers (layers 1..N) ? subdivided by D/V region
   double k_body_dorsal     = 5.0;
   double k_body_ventral    = 5.0;
   double k_body_DV         = 12.0;
 
-  // Basal layer (layer 0) — subdivided by D/V region
+  // Basal layer (layer 0) ? subdivided by D/V region
   double k_basal_dorsal    = 9.0;
   double k_basal_ventral   = 9.0;
   double k_basal_DV        = 12.0;
 
-  // Vertical edges (layer -1) — single value
+  // Vertical edges (layer -1) ? single value
   double k_vertical        = 9.0;
 
   // Pre-computed per-edge spring constant array (size = num_edges).
@@ -560,6 +561,13 @@ struct GeneralParams{
 	double eq_total_volume;
 	double volume_spring_constant = 0.0001;
 	double volume_energy;
+
+	// Biologically-calibrated target volume trajectory.
+	// Populated in System.cu initialization from Liu/Carthew 2024 data.
+	// One entry per simulation stage (indexed 0..stages-1). At the start
+	// of each stage, eq_total_volume is set to the corresponding entry
+	// so the volume spring pulls toward biological targets.
+	std::vector<double> eq_volume_schedule;
 	double eq_total_boundary_length;
 	double line_tension_energy;
 	double line_tension_constant;
@@ -712,7 +720,7 @@ public:
 	void Solve_Forces();
 	//double Solve_Energy(const gsl_vector* temp_locations);
   
-  // Build per-edge spring constant array from the 10 region×layer k values.
+  // Build per-edge spring constant array from the 10 region?layer k values.
   // Call after initializeSystem() and whenever you change any k_* values.
   void buildEdgeSpringConstants();
   

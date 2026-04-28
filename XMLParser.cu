@@ -140,6 +140,47 @@ bool XMLParser::parseFile(const std::string& filename, SystemBuilder& builder) {
             builder.defaultRmin = p.text().as_double();
             std::cout << "Setting Rmin:" << builder.defaultRmin << std::endl;
         }
+        // === Region × Layer spring constants (10 parameters) ===
+        if (auto p = settings.child("k_apical_dorsal")){
+            builder.default_k_apical_dorsal = p.text().as_double();
+            std::cout << "Setting k_apical_dorsal: " << builder.default_k_apical_dorsal << std::endl;
+        }
+        if (auto p = settings.child("k_apical_ventral")){
+            builder.default_k_apical_ventral = p.text().as_double();
+            std::cout << "Setting k_apical_ventral: " << builder.default_k_apical_ventral << std::endl;
+        }
+        if (auto p = settings.child("k_apical_DV")){
+            builder.default_k_apical_DV = p.text().as_double();
+            std::cout << "Setting k_apical_DV: " << builder.default_k_apical_DV << std::endl;
+        }
+        if (auto p = settings.child("k_body_dorsal")){
+            builder.default_k_body_dorsal = p.text().as_double();
+            std::cout << "Setting k_body_dorsal: " << builder.default_k_body_dorsal << std::endl;
+        }
+        if (auto p = settings.child("k_body_ventral")){
+            builder.default_k_body_ventral = p.text().as_double();
+            std::cout << "Setting k_body_ventral: " << builder.default_k_body_ventral << std::endl;
+        }
+        if (auto p = settings.child("k_body_DV")){
+            builder.default_k_body_DV = p.text().as_double();
+            std::cout << "Setting k_body_DV: " << builder.default_k_body_DV << std::endl;
+        }
+        if (auto p = settings.child("k_basal_dorsal")){
+            builder.default_k_basal_dorsal = p.text().as_double();
+            std::cout << "Setting k_basal_dorsal: " << builder.default_k_basal_dorsal << std::endl;
+        }
+        if (auto p = settings.child("k_basal_ventral")){
+            builder.default_k_basal_ventral = p.text().as_double();
+            std::cout << "Setting k_basal_ventral: " << builder.default_k_basal_ventral << std::endl;
+        }
+        if (auto p = settings.child("k_basal_DV")){
+            builder.default_k_basal_DV = p.text().as_double();
+            std::cout << "Setting k_basal_DV: " << builder.default_k_basal_DV << std::endl;
+        }
+        if (auto p = settings.child("k_vertical")){
+            builder.default_k_vertical = p.text().as_double();
+            std::cout << "Setting k_vertical: " << builder.default_k_vertical << std::endl;
+        }
         if (auto p = settings.child("Area_Const")) {
             builder.defaultArea_Const = p.text().as_double();
             std::cout << "Setting area const: " << builder.defaultArea_Const << std::endl;

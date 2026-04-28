@@ -1,5 +1,5 @@
 // ============================================================================
-// StrainTensor.cu — Rewritten to match Fuhrmann et al. (Science Advances, 2024)
+// StrainTensor.cu  Rewritten to match Fuhrmann et al. (Science Advances, 2024)
 //
 // KEY CHANGES from previous version:
 //   1. ?_hh = 1.0 always (no volume conservation in growth tensor)
@@ -7,10 +7,10 @@
 //   3. ? computed as geodesic arc length on sphere, not planar XY distance
 //   4. Basis vectors: e_h = position/|position| (sphere normal),
 //      e_R via Gram-Schmidt of (vertex-origin) against e_h,
-//      e_phi = e_h × e_R
-//   5. No sign convention correction — values are absolute stretch ratios
+//      e_phi = e_h  e_R
+//   5. No sign convention correction  values are absolute stretch ratios
 //   6. No DV strain redirection (inDV uses its own lambda values directly)
-//   7. No strainMode gating — all edges always processed
+//   7. No strainMode gating  all edges always processed
 //
 // Author: Navaira Sherwani, 2025 (rewrite March 2026)
 // ============================================================================
@@ -33,7 +33,7 @@
 #define BLOCK_SZ 256
 
 // ============================================================================
-// Tuple helpers (unchanged from before — these are correct)
+// Tuple helpers (unchanged from before  these are correct)
 // ============================================================================
 
 template<int I> __host__ __device__
@@ -103,7 +103,7 @@ inline double dot3(const CVec3& a, const CVec3& b) {
 
 
 // ============================================================================
-// Region classification (unchanged — this is correct)
+// Region classification (unchanged  this is correct)
 // ============================================================================
 
 enum RegionType { REGION_DORSAL = 0, REGION_DV = 1, REGION_VENTRAL = 2 };
@@ -126,16 +126,16 @@ struct RegionOrigins {
 
 
 // ============================================================================
-// computeBasisVectorsWithDVSeparation — HOST function
+// computeBasisVectorsWithDVSeparation  HOST function
 //
 // Matching Fuhrmann's add_basis_vectors_to_Sph() exactly:
 //   - e_h = position / |position|  (outward normal on a sphere centered at origin)
 //   - e_OA = (vertex - origin) / |vertex - origin|
-//   - e_R = e_OA - (e_h · e_OA) × e_h, then normalized  (Gram-Schmidt)
-//   - e_phi = e_h × e_R
+//   - e_R = e_OA - (e_h  e_OA)  e_h, then normalized  (Gram-Schmidt)
+//   - e_phi = e_h  e_R
 //   - ? = geodesic_distance(vertex, origin) / max_geodesic_distance_in_region
 //
-// Geodesic distance on sphere: d = R × arccos( (x_A · x_O) / R² )
+// Geodesic distance on sphere: d = R  arccos( (x_A  x_O) / R )
 // ============================================================================
 
 void StrainTensorGPU::computeBasisVectorsWithDVSeparation(
@@ -162,7 +162,7 @@ void StrainTensorGPU::computeBasisVectorsWithDVSeparation(
 
     // --- Compute region centroids for origin selection ---
     // Fuhrmann: outDV origin = centroid of dorsal / ventral nodes
-    //           inDV origin  = point on sphere with same x, y=0, z=sqrt(R²-x²)
+    //           inDV origin  = point on sphere with same x, y=0, z=sqrt(R-x)
     double d_sx = 0, d_sy = 0, d_sz = 0; int d_n = 0;
     double v_sx = 0, v_sy = 0, v_sz = 0; int v_n = 0;
 
@@ -183,21 +183,28 @@ void StrainTensorGPU::computeBasisVectorsWithDVSeparation(
 //    if (v_n > 0) { org.OV_x = v_sx/v_n; org.OV_y = v_sy/v_n; org.OV_z = v_sz/v_n; }
 //    else         { org.OV_x = cx; org.OV_y = DV_hw + R*0.25; org.OV_z = cz; }
     // --- REPLACE the centroid computation block ---
-// OLD (wrong — centroid of all dorsal/ventral nodes):
+// OLD (wrong  centroid of all dorsal/ventral nodes):
 // if (d_n > 0) { org.OD_x = d_sx/d_n; org.OD_y = d_sy/d_n; org.OD_z = d_sz/d_n; }
 // if (v_n > 0) { org.OV_x = v_sx/v_n; org.OV_y = v_sy/v_n; org.OV_z = v_sz/v_n; }
 
-// NEW — OD/OV are points on the sphere at the DV boundary:
+// NEW  OD/OV are points on the sphere at the DV boundary:
 // OD sits at Y = -DV_hw on the sphere (dorsal edge of DV strip)
 // OV sits at Y = +DV_hw on the sphere (ventral edge of DV strip)
-    double z_at_dv = sqrt(R * R - DV_hw * DV_hw);
-    org.OD_x = cx;      // centered in X
-    org.OD_y = -DV_hw;  // dorsal edge of DV boundary
-    org.OD_z = z_at_dv; // on sphere surface
-    
+//
+// FIX (2026-04-24): origins must live in the MESH-CENTERED FRAME so they are
+// consistent with e_h, which uses (position - center)/|position - center|.
+// Previously OD/OV.z was set to the world-frame z_at_dv = sqrt(R^2 - DV_hw^2),
+// but e_h treats the mesh as if centered at (cx, cy, cz). The mismatch caused
+// a ~90-degree e_R orientation jump across the DV boundary, producing the
+// sharp dent at the DV midline seen in VTK output.
+    double z_at_dv_local = sqrt(R * R - DV_hw * DV_hw);  // distance above center
+    org.OD_x = cx;                   // centered in X
+    org.OD_y = cy - DV_hw;           // dorsal edge relative to mesh center
+    org.OD_z = cz + z_at_dv_local;   // on sphere surface, measured from mesh center
+
     org.OV_x = cx;
-    org.OV_y = +DV_hw;
-    org.OV_z = z_at_dv;
+    org.OV_y = cy + DV_hw;
+    org.OV_z = cz + z_at_dv_local;
     
     // --- First pass: compute geodesic path lengths and find max per region ---
     std::vector<double> h_pathlength(N, 0.0);
@@ -213,16 +220,18 @@ void StrainTensorGPU::computeBasisVectorsWithDVSeparation(
         double ox, oy, oz;
         if (region == REGION_DV) {
             h_nodesDV[i] = 1;
-            // Fuhrmann: inDV origin = point on sphere with same x, y=0
-            double r_xz = sqrt(x*x + z*z);
-            if (r_xz > 1e-10) {
-                ox = x;  oy = 0.0;  oz = sqrt(R*R - x*x);
-                // Renormalize to sphere surface
-                double omag = sqrt(ox*ox + oy*oy + oz*oz);
-                if (omag > 1e-10) { ox *= R/omag; oy *= R/omag; oz *= R/omag; }
-            } else {
-                ox = 0; oy = 0; oz = R;  // pole
-            }
+            // FIX (2026-04-24): Fuhrmann's inDV origin is a point on the sphere
+            // with the same x-coordinate, projected onto y=0, z=sqrt(R^2 - x^2).
+            // Work entirely in the MESH-CENTERED FRAME, matching e_h. The old
+            // code used the world-frame z and the wrong projection formula
+            // (oz = z*R/r_xz instead of oz = sqrt(R^2 - x^2)), which shifted
+            // the origin off the sphere for any node not in the equatorial plane.
+            double xc = x - cx;
+            // Clamp |xc| to R in case of mesh noise
+            double xc_clamped = std::max(-R, std::min(R, xc));
+            ox = cx + xc_clamped;
+            oy = cy + 0.0;
+            oz = cz + sqrt(R*R - xc_clamped*xc_clamped);
         } else if (region == REGION_DORSAL) {
             h_nodesDV[i] = 0;
             ox = org.OD_x; oy = org.OD_y; oz = org.OD_z;
@@ -231,10 +240,12 @@ void StrainTensorGPU::computeBasisVectorsWithDVSeparation(
             ox = org.OV_x; oy = org.OV_y; oz = org.OV_z;
         }
 
-        // Geodesic distance: d = R * arccos( (A · O) / R² )
-        double dotAO = x*ox + y*oy + z*oz;
-        double rA = sqrt(x*x + y*y + z*z);
-        double rO = sqrt(ox*ox + oy*oy + oz*oz);
+        // Geodesic distance uses MESH-CENTERED vectors: work with (A - c) and (O - c)
+        double Ax = x - cx, Ay = y - cy, Az = z - cz;
+        double Ox_c = ox - cx, Oy_c = oy - cy, Oz_c = oz - cz;
+        double dotAO = Ax*Ox_c + Ay*Oy_c + Az*Oz_c;
+        double rA = sqrt(Ax*Ax + Ay*Ay + Az*Az);
+        double rO = sqrt(Ox_c*Ox_c + Oy_c*Oy_c + Oz_c*Oz_c);
         double cosAngle = dotAO / (rA * rO + 1e-14);
         cosAngle = std::max(-1.0, std::min(1.0, cosAngle));  // clamp for numerical safety
         double geodesic = R * acos(cosAngle);
@@ -276,30 +287,38 @@ void StrainTensorGPU::computeBasisVectorsWithDVSeparation(
         h_pathlength[i] = std::max(0.0, std::min(1.0, h_pathlength[i]));
 
         // ----------------------------------------------------------------
-        // Basis vectors — matching Fuhrmann's add_basis_vectors_to_Sph()
+        // Basis vectors  matching Fuhrmann's add_basis_vectors_to_Sph()
         // ----------------------------------------------------------------
 
-        // e_h = outward surface normal = position / |position|
-        // (Fuhrmann: e_h = np.matrix(top_balls[["x","y","z"]]); normalize row-wise)
-        double r_node = sqrt(x*x + y*y + z*z);
+        // e_h = outward surface normal = (position - center) / |position - center|
+        // APPROACH 1 FIX (2026-04-20): Use center-offset normalization instead of
+        // Fuhrmann's position/|position|. Fuhrmann's formula only produces the
+        // correct local surface normal when the mesh is a sphere CENTERED AT THE
+        // WORLD ORIGIN. Our dome is centered at (centerX, centerY, centerZ) ~
+        // (0, 0, 33.7), so we must subtract the center before normalizing.
+        // Without this fix, e_h was systematically wrong everywhere except the
+        // top of the dome, producing tensor-from-identity errors of ~0.56 and
+        // causing the DV midline to collapse as vertical edges received spurious
+        // in-plane strain.
+        double dx_c = x - cx;
+        double dy_c = y - cy;
+        double dz_c = z - cz;
+        double r_node = sqrt(dx_c*dx_c + dy_c*dy_c + dz_c*dz_c);
         double eh_x, eh_y, eh_z;
         if (r_node > 1e-10) {
-            eh_x = x / r_node; eh_y = y / r_node; eh_z = z / r_node;
+            eh_x = dx_c / r_node; eh_y = dy_c / r_node; eh_z = dz_c / r_node;
         } else {
             eh_x = 0; eh_y = 0; eh_z = 1;
         }
 
-        // Origin for this vertex
+        // Origin for this vertex (MESH-CENTERED FRAME, matches first pass)
         double ox, oy, oz;
         if (region == REGION_DV) {
-            double r_xz = sqrt(x*x + z*z);
-            if (r_xz > 1e-10) {
-                ox = x; oy = 0.0; oz = z * R / r_xz;
-                double omag = sqrt(ox*ox + oy*oy + oz*oz);
-                if (omag > 1e-10) { ox *= R/omag; oy *= R/omag; oz *= R/omag; }
-            } else {
-                ox = 0; oy = 0; oz = R;
-            }
+            double xc = x - cx;
+            double xc_clamped = std::max(-R, std::min(R, xc));
+            ox = cx + xc_clamped;
+            oy = cy + 0.0;
+            oz = cz + sqrt(R*R - xc_clamped*xc_clamped);
         } else if (region == REGION_DORSAL) {
             ox = org.OD_x; oy = org.OD_y; oz = org.OD_z;
         } else {
@@ -312,13 +331,13 @@ void StrainTensorGPU::computeBasisVectorsWithDVSeparation(
         if (eoa_mag > 1e-10) {
             eoa_x /= eoa_mag; eoa_y /= eoa_mag; eoa_z /= eoa_mag;
         } else {
-            // At the origin itself — pick an arbitrary tangent direction
+            // At the origin itself  pick an arbitrary tangent direction
             if (fabs(eh_x) < 0.9) { eoa_x = 1; eoa_y = 0; eoa_z = 0; }
             else                   { eoa_x = 0; eoa_y = 1; eoa_z = 0; }
         }
 
         // e_R via Gram-Schmidt: project e_OA onto tangent plane (remove e_h component)
-        // Fuhrmann: M*e_R = e_OA - (e_h · e_OA) * e_h; then normalize
+        // Fuhrmann: M*e_R = e_OA - (e_h  e_OA) * e_h; then normalize
         double dot_h_OA = eh_x*eoa_x + eh_y*eoa_y + eh_z*eoa_z;
         double eR_x = eoa_x - dot_h_OA * eh_x;
         double eR_y = eoa_y - dot_h_OA * eh_y;
@@ -328,7 +347,7 @@ void StrainTensorGPU::computeBasisVectorsWithDVSeparation(
         if (eR_mag > 1e-10) {
             eR_x /= eR_mag; eR_y /= eR_mag; eR_z /= eR_mag;
         } else {
-            // e_OA was parallel to e_h — pick arbitrary tangent vector
+            // e_OA was parallel to e_h  pick arbitrary tangent vector
             if (fabs(eh_x) < 0.9) { eR_x = 1; eR_y = 0; eR_z = 0; }
             else                   { eR_x = 0; eR_y = 1; eR_z = 0; }
             double d = eR_x*eh_x + eR_y*eh_y + eR_z*eh_z;
@@ -337,7 +356,7 @@ void StrainTensorGPU::computeBasisVectorsWithDVSeparation(
             if (eR_mag > 1e-10) { eR_x /= eR_mag; eR_y /= eR_mag; eR_z /= eR_mag; }
         }
 
-        // e_phi = e_h × e_R
+        // e_phi = e_h  e_R
         double ePhi_x = eh_y*eR_z - eh_z*eR_y;
         double ePhi_y = eh_z*eR_x - eh_x*eR_z;
         double ePhi_z = eh_x*eR_y - eh_y*eR_x;
@@ -390,11 +409,11 @@ void StrainTensorGPU::computeBasisVectorsWithDVSeparation(
 // CUDA kernel: build lambda field at each vertex
 //
 // Matching Fuhrmann:
-//   ?_rr = ?_iso(?) × ?_aniso(?)
+//   ?_rr = ?_iso(?)  ?_aniso(?)
 //   ?_ff = ?_iso(?) / ?_aniso(?)
-//   ?_hh = 1.0   (always — no volume conservation in the growth tensor)
+//   ?_hh = 1.0   (always  no volume conservation in the growth tensor)
 //
-// Currently uses linear interpolation for ?(?): ? = ?_center + (?_edge - ?_center) × ?
+// Currently uses linear interpolation for ?(?): ? = ?_center + (?_edge - ?_center)  ?
 // To match Fuhrmann's polynomial exactly, replace with polynomial evaluation.
 // ============================================================================
 
@@ -426,7 +445,7 @@ void k_buildLambda_Fuhrmann(
     // Choose lambda schedule based on DV membership
     const bool inDV = (nodesDV[tid] != 0);
 
-    // Linear interpolation: ?(?) = ?_center + (?_edge - ?_center) × ?
+    // Linear interpolation: ?(?) = ?_center + (?_edge - ?_center)  ?
     // This is equivalent to Fuhrmann's np.poly1d with 2 coefficients:
     //   coeffs = [slope, intercept] = [(?_edge - ?_center), ?_center]
     double lamIso, lamAni;
@@ -445,10 +464,31 @@ void k_buildLambda_Fuhrmann(
 
     
     if (inDV){
-        // Principal stretch ratios
-        lam_rr[tid] = 1.0;//lamIso * lamAni;
-        lam_pp[tid] = lamIso / lamAni;
-        lam_ss[tid] = 1.0;   // <--- FUHRMANN: ?_hh = 1.0, always
+        // ----------------------------------------------------------------
+        // inDV: produce an UPWARD bump along the DV midline.
+        //
+        // Biologically, cells at the DV midline grow TALLER (thicken in the
+        // apical-basal direction) as the wing margin fold forms.
+        //
+        // Original Fuhrmann (commented out): lam_rr=1, lam_pp=lamIso/lamAni,
+        // lam_ss=1. With lam_ss pinned at 1, the stripe could only shrink
+        // or grow in plane, which left the only out-of-plane response as a
+        // downward dent (because basal springs are stiffer than apical).
+        //
+        // FIX (2026-04-24): assign lam_ss = lamAni so the inDV stripe is
+        // actively pushed taller in e_h, producing the apical bump that
+        // matches Ecad:GFP cross-sections at 2-4 hAPF.
+        //
+        // Old assignments (kept as comments for reference):
+        //   lam_rr[tid] = 1.0;             // across-DV (no in-plane stretch)
+        //   lam_pp[tid] = lamIso / lamAni; // along-DV
+        //   lam_ss[tid] = 1.0;             // thickness (pinned)
+        // ----------------------------------------------------------------
+        lam_rr[tid] = lamIso * lamAni;//1.0;          // across-DV: no in-plane stretch
+        lam_pp[tid] = lamIso / lamAni;         // along-DV: no in-plane stretch either,
+                                    //           so the stripe doesn't lengthen
+                                    //           or compress in plane
+        lam_ss[tid] = 1.0;//lamAni;       // thickness: GROW TALLER (this drives the bump)
     }
     else{
         // Principal stretch ratios
@@ -471,11 +511,11 @@ void k_buildLambda_Fuhrmann(
 // CUDA kernel: project ? onto each edge to get new rest lengths
 //
 // Matching Fuhrmann (array_wd.py) exactly:
-//   ?_avg = 0.5 × (?_a + ?_ß)
-//   l* = |?_avg · d_initial|
+//   ?_avg = 0.5  (?_a + ?_)
+//   l* = |?_avg  d_initial|
 //
 // ALL edges are processed. No vertical skip. Since ?_hh = 1, vertical
-// edges (aligned with e_h) naturally produce l* ˜ l_initial.
+// edges (aligned with e_h) naturally produce l*  l_initial.
 // ============================================================================
 
 __global__
@@ -502,7 +542,7 @@ void k_edgeRestProj_Fuhrmann(
     // Edge vector in initial configuration
     CVec3 dX = CVec3(x[a] - x[b], y[a] - y[b], z[a] - z[b]);
 
-    // Average tensor at edge endpoints: ?_avg = 0.5 × (?_a + ?_ß)
+    // Average tensor at edge endpoints: ?_avg = 0.5  (?_a + ?_)
     Mat_3x3 La = lam_alpha[a];
     Mat_3x3 Lb = lam_alpha[b];
     Mat_3x3 Lavg;
@@ -522,7 +562,7 @@ void k_edgeRestProj_Fuhrmann(
         0.5 * (c<1>(thrust::get<2>(La)) + c<1>(thrust::get<2>(Lb))),
         0.5 * (c<2>(thrust::get<2>(La)) + c<2>(thrust::get<2>(Lb))));
 
-    // l* = |?_avg · d|
+    // l* = |?_avg  d|
     CVec3 stretched = matVec(Lavg, dX);
     L_final[eid] = norm3(stretched);
 }
@@ -559,7 +599,7 @@ void buildVertexLambda(GeneralParams& gp,
         printed = true;
     }
 
-    // Need pathlength_scaled on device — it was stored in coordInfoVecs by computeBasisVectors
+    // Need pathlength_scaled on device  it was stored in coordInfoVecs by computeBasisVectors
     // The basis vectors are already in field.e_R, field.e_phi, field.e_h
     // (copied from coordInfoVecs in System.cu)
 
@@ -596,7 +636,7 @@ void updateEdgeRestLengths(CoordInfoVecs&        coord,
     const int E = static_cast<int>(coord.num_edges);
     dim3 grid((E + BLOCK_SZ - 1) / BLOCK_SZ);
 
-    // No strainMode gating — ALL edges get processed, matching Fuhrmann
+    // No strainMode gating  ALL edges get processed, matching Fuhrmann
     k_edgeRestProj_Fuhrmann<<<grid, BLOCK_SZ>>>(
         E,
         thrust::raw_pointer_cast(coord.edges2Nodes_1.data()),

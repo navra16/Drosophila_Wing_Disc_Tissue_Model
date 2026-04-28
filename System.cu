@@ -1,3 +1,18 @@
+// Print values of all the different types of forces. 
+ // Decrease the time step even more. 
+ // Print volume at each step 
+ // Reset all forces to zero.
+ // Choose a different volume as the equilibrium volume. Look into paper Ben provided. Growth arrest paper. Roughly 30% volume increase. 
+ // Apply strain in different steps to allow for volume to catch up. 
+ // Basal strain. 
+ // Active shape programming look into their data to get strain field. 
+ // Run sim from wl - 0 and then wl - 2 and calculate the strain field from the difference between the two. 
+ // Compare results w active shape programming paper w and without volume constraint. 
+ // Send the data from my model to Dr. Wang. 
+ 
+ // Look into backward euler for this instead. jacobian tree. 
+      
+
 #include <stdio.h>
 #include "System.h"
 #include "SystemStructures.h"
@@ -31,7 +46,7 @@
 #include <thrust/iterator/constant_iterator.h>
 #include <iostream>
 #include <algorithm>
-#include <cmath>
+#include <cmath> 
 #include <map>
 
 // ============================================================================
@@ -717,12 +732,12 @@ void System::Solve_Forces()
 //      		generalParams,
 //      		auxVecs);
 
-//        ComputeVolume(
-//          generalParams,
-//          coordInfoVecs,
-//          linearSpringInfoVecs,
-//          ljInfoVecs,
-//          prismInfoVecs);
+        ComputeVolume(
+          generalParams,
+          coordInfoVecs,
+          linearSpringInfoVecs,
+          ljInfoVecs,
+          prismInfoVecs);
           
           
 //        {
@@ -837,13 +852,13 @@ void System::Solve_Forces()
 //            debug_call_count++;
 //        }
     // Compute forces and energy due to volume springs. //(nav - commenting these out for now for flat surface 5/29/24) Nav had uncommented but she's bringing the comment back because testing out Active shape mesh 02/27/25
-//      	ComputeVolumeSprings(
-//      		coordInfoVecs,
-//          linearSpringInfoVecs,
-//          capsidInfoVecs,
-//          generalParams,
-//          //auxVecs,
-//          prismInfoVecs);
+      	ComputeVolumeSprings(
+      		coordInfoVecs,
+          linearSpringInfoVecs,
+          capsidInfoVecs,
+          generalParams,
+          //auxVecs,
+          prismInfoVecs);
     
     // Now print forces along the radial line
    // PrintForce();
@@ -1433,7 +1448,76 @@ void System::solveSystem()
     ComputeVolume(generalParams, coordInfoVecs, linearSpringInfoVecs, 
                   ljInfoVecs, prismInfoVecs);
     generalParams.eq_total_volume = generalParams.current_total_volume;
-    std::cout << "Initial volume: " << generalParams.eq_total_volume << std::endl;
+    std::cout << "Initial volume: " << generalParams.eq_total_volume << std::endl; // this is the quilibrium volume that the mesh is trying to get to. 
+    std::cout << "Volume Spring Constant = " << generalParams.volume_spring_constant <<std::endl;
+
+    // ================================================================
+    // BIOLOGICAL VOLUME TARGET SCHEDULE  (added 04/20/26 - Navaira)
+    //
+    // Source: Liu, O'Connell, Wall & Carthew (2024) eLife 91572
+    //         Animal_Properties.xlsx, wildtype pouch volume measurements
+    //
+    // Our simulation covers 3 stages from wL3 (-4 hAPF) to 4 hAPF, matching
+    // Fuhrmann et al. 2024 (Sci Adv) which defines lambdas at exactly 3 stage
+    // endpoints: 0hAPF, 2hAPF, and 4hAPF (all relative to wL3 reference).
+    //
+    // Liu/Carthew 2024 measured wildtype pouch volumes at developmental
+    // timepoints we can map onto Fuhrmann's stages (all in um^3):
+    //
+    //     time (hAPF)    measurement          volume (um^3)   maps to
+    //     ------------   ------------------   -------------   ----------
+    //       -4.0         interpolated           714849        sim start
+    //        0.0         WPP                   1143897        end stage 0
+    //       +2.0         interpolated WPP/+1   1135478        end stage 1
+    //       +4.0         extrapolated WPP+1    1117134        end stage 2
+    //
+    // The +2hAPF value is a linear interpolation between WPP (1143897 at 0hAPF)
+    // and WPP+1 (1117134 at +1hAPF) extrapolated 1 hour forward. Since volume
+    // plateaus near WPP+1, we use the WPP+1 measurement as the stable target for
+    // both +2 and +4 hAPF, with a small linear smoothing.
+    //
+    // The mesh volume at wL3 is NOT in um^3 but in simulation units.
+    // We therefore work with a scaling factor s = V_sim(wL3) / V_bio(wL3)
+    // and construct the target schedule in simulation units.
+    // The volume spring pulls current_total_volume toward this target.
+    // ================================================================
+    {
+        // Biological wildtype pouch volumes (um^3) from Liu/Carthew 2024.
+        // Schedule has stages+1 entries: index 0 = wL3 (start), index s+1 = end of stage s.
+        const double V_bio_um3[4] = {
+             714849.0,   // wL3 reference  (start of stage 0, -4 hAPF, interpolated)
+            1143897.0,   // 0hAPF          (end of stage 0, WPP measurement)
+            1135478.0,   // 2hAPF          (end of stage 1, interp between WPP and WPP+1+plateau)
+            1117134.0    // 4hAPF          (end of stage 2, WPP+1 plateau extrapolated)
+        };
+        const int N_SCHED = 4;
+
+        // Scale factor: sim volume / biological volume at wL3.
+        // This converts biological micrometer^3 targets into the simulation's
+        // internal volume units. Applied to every scheduled value so the
+        // entire target trajectory lives in the simulation's native units.
+        const double sim_per_bio = generalParams.eq_total_volume / V_bio_um3[0];
+
+        generalParams.eq_volume_schedule.clear();
+        generalParams.eq_volume_schedule.reserve(N_SCHED);
+        std::cout << "\n=== Biological volume schedule (Liu/Carthew 2024) ===" << std::endl;
+        std::cout << "  sim-to-bio scaling factor = " << sim_per_bio
+                  << "  (sim_wL3=" << generalParams.eq_total_volume
+                  << ", bio_wL3=" << V_bio_um3[0] << ")" << std::endl;
+        for (int s = 0; s < N_SCHED; ++s) {
+            double v_target = V_bio_um3[s] * sim_per_bio;
+            generalParams.eq_volume_schedule.push_back(v_target);
+            double pct = 100.0 * (V_bio_um3[s] - V_bio_um3[0]) / V_bio_um3[0];
+            const char* label = (s == 0) ? "wL3 start " : "end stage ";
+            std::cout << "  " << label << (s == 0 ? 0 : s - 1)
+                      << " (" << (s == 0 ? -4 : 2*(s-1)) << "hAPF)"
+                      << ": bio = " << V_bio_um3[s] << " um^3"
+                      << "  -> sim target = " << v_target
+                      << "  (" << (pct >= 0 ? "+" : "") << pct << "% from wL3)"
+                      << std::endl;
+        }
+        std::cout << "=====================================================\n" << std::endl;
+    }
     
       
        // ================================================================
@@ -1653,17 +1737,56 @@ void System::solveSystem()
         // FIX: Ensure lambda_aniso_edge_outDV = 1.0 (your XML might have 0.5)
         generalParams.lambda_aniso_edge_outDV = 1.0;
         double frac = 1.0;   // full-field application per stage
-        
-        // Strain field (lambda) values in inDV and outDV regions at different stages of eversion. 
-        generalParams.lambda_iso_center_outDV = 1.4348;//-0.20050286;//-0.12406004;  // wl3-0hAPF (-0.12406004) | wl3-2hAPF (-0.29431527) | wl3-4hAPF (-0.20050286)
-        generalParams.lambda_iso_edge_outDV = 1.2343; // 1.43479468;//1.20789496;     // wl3-0hAPF ( 1.20789496) | wl3-2hAPF ( 1.44256030) | wl3-4hAPF ( 1.43479468)
-        generalParams.lambda_aniso_center_outDV = 0.9765; // 0.2944444;//-0.06172103;// wl3-0hAPF (-0.06172103) | wl3-2hAPF ( 0.21823128) | wl3-4hAPF ( 0.29444448)
-        generalParams.lambda_aniso_edge_outDV = 1.2710; // 0.97652462; //1.01053997;   // wl3-0hAPF ( 1.01053997) | wl3-2hAPF ( 0.98874841) | wl3-4hAPF ( 0.97652462)
-        
-        generalParams.lambda_iso_center_inDV = 1.4747; //-0.06151876;//-0.09848994; //    wl3-0hAPF (-0.09848994) | wl3-2hAPF (-0.11692544) | wl3-4hAPF (-0.06151876)
-        generalParams.lambda_iso_edge_inDV = 1.4132;//1.47472744;  //1.18401136;//       wl3-0hAPF ( 1.18401136) | wl3-2hAPF ( 1.21007540) | wl3-4hAPF ( 1.47472744)
-        generalParams.lambda_aniso_center_inDV = 1.2937;//-0.30567972;//-0.12904887; //  wl3-0hAPF (-0.12904887) | wl3-2hAPF (-0.21271504) | wl3-4hAPF (-0.30567972)
-        generalParams.lambda_aniso_edge_inDV =0.9880;// 1.29370391;  //1.03128453; //    wl3-0hAPF ( 1.03128453) | wl3-2hAPF ( 1.24178074) | wl3-4hAPF ( 1.29370391)
+
+        // ============================================================================
+        // FUHRMANN 3-STAGE LAMBDA SCHEDULE
+        //
+        // Each stage's lambda values represent the CUMULATIVE strain from the wL3
+        // reference geometry to the end of that stage. Values come directly from
+        // input_lambda_df.csv, parsed as np.poly1d([slope, intercept]) where
+        //   center = intercept (rho = 0)
+        //   edge   = slope + intercept (rho = 1)
+        //
+        // Stage 0: wL3 -> 0hAPF
+        // Stage 1: wL3 -> 2hAPF
+        // Stage 2: wL3 -> 4hAPF
+        //
+        // Within each stage we ramp edge rest lengths linearly from the previous
+        // stage's target (or edge_initial_length for stage 0) to this stage's
+        // target across Nsteps relaxation substeps, matching Fuhrmann's
+        // array_wd.py line 234:
+        //     l0(k+1) = l0(k) + (l0_stage[s] - l0_stage[s-1]) / nb_iterations
+        // ============================================================================
+        struct StageLambdas {
+            double iso_center_outDV;   double iso_edge_outDV;
+            double aniso_center_outDV; double aniso_edge_outDV;
+            double iso_center_inDV;    double iso_edge_inDV;
+            double aniso_center_inDV;  double aniso_edge_inDV;
+        };
+        const StageLambdas lam_per_stage[3] = {
+            // Stage 0: wL3 -> 0hAPF
+            { 1.2079, 1.0838, 1.0105, 1.0723,    // outDV iso center/edge, aniso center/edge
+              1.1840, 1.0855, 1.0313, 0.9023 },  // inDV  iso center/edge, aniso center/edge
+            // Stage 1: wL3 -> 2hAPF
+            { 1.4426, 1.1483, 0.9887, 1.2070,
+              1.2101, 1.0931, 1.2418, 1.0291 },
+            // Stage 2: wL3 -> 4hAPF
+            { 1.4348, 1.2343, 0.9765, 1.2710,
+              1.4747, 1.4132, 1.2937, 0.9880 }
+        };
+
+        // Set the lambda parameters to stage 2 (final) for the diagnostic build
+        // below. The actual stage-by-stage values are loaded inside the
+        // pre-compute loop further down. The diagnostic confirms basis
+        // vectors and tensor are sane at the maximum strain magnitudes.
+        generalParams.lambda_iso_center_outDV   = lam_per_stage[2].iso_center_outDV;
+        generalParams.lambda_iso_edge_outDV     = lam_per_stage[2].iso_edge_outDV;
+        generalParams.lambda_aniso_center_outDV = lam_per_stage[2].aniso_center_outDV;
+        generalParams.lambda_aniso_edge_outDV   = lam_per_stage[2].aniso_edge_outDV;
+        generalParams.lambda_iso_center_inDV    = lam_per_stage[2].iso_center_inDV;
+        generalParams.lambda_iso_edge_inDV      = lam_per_stage[2].iso_edge_inDV;
+        generalParams.lambda_aniso_center_inDV  = lam_per_stage[2].aniso_center_inDV;
+        generalParams.lambda_aniso_edge_inDV    = lam_per_stage[2].aniso_edge_inDV;
         
         
         // NOW build the lambda field (it will use the basis vectors we just copied)
@@ -2063,80 +2186,131 @@ void System::solveSystem()
           }
         
 
-    stages = 5;
-        int Nsteps = 20;
-        int E = coordInfoVecs.num_edges;
-        // Compute per-substep delta: (edge_final - edge_initial) / (stages * Nsteps)
-        // Stored once, reused every substep within a stage.
-        // Recomputed each stage because edge_initial updates.
-        thrust::device_vector<double> substep_delta(E);
-    // substep_delta = (edge_final - edge_initial) / (stages * Nsteps)
-    
-            double divisor = double(stages) * double(Nsteps);
-    
-            thrust::transform(
-    
-                linearSpringInfoVecs.edge_final_length.begin(),
-    
-                linearSpringInfoVecs.edge_final_length.end(),
-    
-                linearSpringInfoVecs.edge_initial_length.begin(),
-    
-                substep_delta.begin(),
-    
-                thrust::minus<double>());
-    
-            // substep_delta now = edge_final - edge_initial
-    
-            // Scale by 1/divisor
-    
-            thrust::transform(
-    
-                substep_delta.begin(),
-    
-                substep_delta.end(),
-    
-                thrust::make_constant_iterator(divisor),
-    
-                substep_delta.begin(),
-    
-                thrust::divides<double>());
-    
+    // ============================================================================
+    // FUHRMANN 3-STAGE EVERSION LOOP
+    //
+    // Two pre-computation steps before the relaxation loop:
+    //
+    //  1. For each of the 3 stages, compute edge_target_per_stage[s] = the
+    //     rest length each edge would have if the wL3 reference were strained
+    //     by that stage's lambda field. We do this by loading the stage's
+    //     lambdas, calling buildVertexLambda + updateEdgeRestLengths (which
+    //     writes into edge_final_length), then copying edge_final_length into
+    //     our per-stage storage.
+    //
+    //  2. Inside the main loop, for each stage s we compute a per-stage
+    //     substep_delta = (edge_target_per_stage[s] - prev_target) / Nsteps
+    //     where prev_target = edge_initial_length for s == 0, otherwise
+    //     edge_target_per_stage[s-1]. We then ramp edge_rest_length linearly
+    //     across Nsteps substeps, calling relaxUntilConverged after each.
+    //
+    // The volume target is interpolated WITHIN each stage from
+    // schedule[stage] to schedule[stage+1] across Nsteps substeps (eliminates
+    // the volume snap that occurred with step-function targets).
+    // ============================================================================
+    stages = 3;
+    int Nsteps = 20;
+    int E = coordInfoVecs.num_edges;
+
+    // ---------- Pre-compute per-stage edge target rest lengths ----------
+    std::vector<thrust::device_vector<double>> edge_target_per_stage(stages);
+    for (int s = 0; s < stages; ++s) {
+        // Load this stage's lambda values
+        generalParams.lambda_iso_center_outDV   = lam_per_stage[s].iso_center_outDV;
+        generalParams.lambda_iso_edge_outDV     = lam_per_stage[s].iso_edge_outDV;
+        generalParams.lambda_aniso_center_outDV = lam_per_stage[s].aniso_center_outDV;
+        generalParams.lambda_aniso_edge_outDV   = lam_per_stage[s].aniso_edge_outDV;
+        generalParams.lambda_iso_center_inDV    = lam_per_stage[s].iso_center_inDV;
+        generalParams.lambda_iso_edge_inDV      = lam_per_stage[s].iso_edge_inDV;
+        generalParams.lambda_aniso_center_inDV  = lam_per_stage[s].aniso_center_inDV;
+        generalParams.lambda_aniso_edge_inDV    = lam_per_stage[s].aniso_edge_inDV;
+
+        // Build vertex-level lambda field, then write edge_final_length
+        StrainTensorGPU::buildVertexLambda(generalParams, coordInfoVecs, lambda, frac);
+        StrainTensorGPU::updateEdgeRestLengths(coordInfoVecs, generalParams,
+                                                lambda, linearSpringInfoVecs, layerflag);
+
+        // Copy edge_final_length into this stage's target slot
+        edge_target_per_stage[s].resize(E);
+        thrust::copy(linearSpringInfoVecs.edge_final_length.begin(),
+                     linearSpringInfoVecs.edge_final_length.end(),
+                     edge_target_per_stage[s].begin());
+
+        std::cout << "[Pre-compute] Stage " << s << " edge targets stored ("
+                  << "iso_center_inDV="  << lam_per_stage[s].iso_center_inDV  << ", "
+                  << "iso_edge_inDV="    << lam_per_stage[s].iso_edge_inDV    << ", "
+                  << "iso_center_outDV=" << lam_per_stage[s].iso_center_outDV << ", "
+                  << "iso_edge_outDV="   << lam_per_stage[s].iso_edge_outDV
+                  << ")" << std::endl;
+    }
+
+    // ---------- Main relaxation loop ----------
+    thrust::device_vector<double> substep_delta(E);
+
     for (int stage = 0; stage < stages; stage++)
+    {
+        // Per-stage substep_delta = (target[stage] - prev_target) / Nsteps
+        // prev_target = edge_initial_length for stage 0, else target[stage-1]
+        thrust::device_vector<double>& prev_target =
+            (stage == 0) ? linearSpringInfoVecs.edge_initial_length
+                         : edge_target_per_stage[stage - 1];
+        thrust::device_vector<double>& curr_target = edge_target_per_stage[stage];
+
+        thrust::transform(curr_target.begin(), curr_target.end(),
+                          prev_target.begin(),
+                          substep_delta.begin(),
+                          thrust::minus<double>());
+        thrust::transform(substep_delta.begin(), substep_delta.end(),
+                          thrust::make_constant_iterator(double(Nsteps)),
+                          substep_delta.begin(),
+                          thrust::divides<double>());
+
+        // Volume schedule endpoints for within-stage interpolation
+        // schedule[0..stages] = wL3, end-stage-0, end-stage-1, end-stage-2
+        double V_start = generalParams.eq_volume_schedule.empty() ? generalParams.eq_total_volume
+                       : generalParams.eq_volume_schedule[std::min(stage, (int)generalParams.eq_volume_schedule.size() - 1)];
+        double V_end   = generalParams.eq_volume_schedule.empty() ? generalParams.eq_total_volume
+                       : generalParams.eq_volume_schedule[std::min(stage + 1, (int)generalParams.eq_volume_schedule.size() - 1)];
+
+        std::cout << "\n[Stage " << stage << "/" << stages
+                  << "] volume ramp " << V_start << " -> " << V_end << std::endl;
+
+        for (int iter = 0; iter < Nsteps; iter++)
         {
-            for (int iter = 0; iter < Nsteps; iter++)
-            {
-                // edge_rest += substep_delta
-                thrust::transform(
-                    linearSpringInfoVecs.edge_rest_length.begin(),
-                    linearSpringInfoVecs.edge_rest_length.end(),
-                    substep_delta.begin(),
-                    linearSpringInfoVecs.edge_rest_length.begin(),
-                    thrust::plus<double>());
-                int k = relaxUntilConvergedWithParams(
-                    *this,
-                    0.01,
-                    1e-8,
-                    50000,
-                    1000);
-                double E_total = linearSpringInfoVecs.linear_spring_energy
-                               + generalParams.volume_energy;
-                std::cout << "Stage " << stage << "/" << stages
-                          << " step " << iter << "/" << Nsteps
-                          << " | E = " << E_total
-                          << " | Linear E = " << linearSpringInfoVecs.linear_spring_energy
-                          //<< " | Volume E = " << generalParams.volume_energy
-                          //<< " | Area E = " << areaTriangleInfoVecs.area_triangle_energy
-                          << " | Mov = " << generalParams.dx
-                          << " | Volume = " << generalParams.current_total_volume
-                          << " | Relax steps = " << k << std::endl;
-                if (iter % 1 == 0)
-                    storage->print_VTK_File();
-            }
-            // After this stage: update initial to current rest
-            // linearSpringInfoVecs.edge_initial_length = linearSpringInfoVecs.edge_rest_length;
+            // Within-stage linear volume ramp: V(iter) = V_start + (V_end-V_start)*(iter+1)/Nsteps
+            double t = double(iter + 1) / double(Nsteps);
+            generalParams.eq_total_volume = V_start + (V_end - V_start) * t;
+
+            // edge_rest += substep_delta
+            thrust::transform(
+                linearSpringInfoVecs.edge_rest_length.begin(),
+                linearSpringInfoVecs.edge_rest_length.end(),
+                substep_delta.begin(),
+                linearSpringInfoVecs.edge_rest_length.begin(),
+                thrust::plus<double>());
+
+            int k = relaxUntilConvergedWithParams(
+                *this,
+                0.01,
+                1e-8,
+                50000,
+                1000);
+
+            double E_total = linearSpringInfoVecs.linear_spring_energy
+                           + generalParams.volume_energy;
+            std::cout << "Stage " << stage +1 << "/" << stages
+                      << " step " << iter << "/" << Nsteps
+                      << " | E = " << E_total
+                      << " | Linear E = " << linearSpringInfoVecs.linear_spring_energy
+                      << " | V_target = " << generalParams.eq_total_volume
+                      << " | V_curr = " << generalParams.current_total_volume
+                      << " | Mov = " << generalParams.dx
+                      << " | Relax steps = " << k << std::endl;
+
             storage->print_VTK_File();
         }
+        storage->print_VTK_File();
+    }
 // Below is the previous working loop for eversion application. Commented out on 03/09/2026
 
         
